@@ -1,0 +1,72 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Accordion
+===============================*/
+.faq {
+    &__wrap {
+        & .accordion {
+            &-item {
+                background: var(--tg-color-gray-11);
+                border: none;
+                @include border-radius(6px);
+                overflow: hidden;
+                margin-bottom: 12px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                &:first-of-type {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                    & .accordion-button {
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                    }
+                }
+            }
+            &-button {
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--tg-color-black-2);
+                padding: 20px 50px 20px 25px;
+                background: var(--tg-color-gray-11);
+                @include border-radius(6px);
+                &:focus {
+                    border-color: transparent;
+                    box-shadow: none;
+                }
+                &:not(.collapsed) {
+                    box-shadow: none;
+                    color: var(--tg-theme-primary);
+                    &::before {
+                        content: "\f10a";
+                        color: var(--tg-theme-primary);
+                    }
+                }
+                &::after {
+                    display: none;
+                }
+                &::before {
+                    content: "\f109";
+                    width: auto;
+                    height: auto;
+                    background-image: none;
+                    font-family: "flaticon_tg_default";
+                    font-size: 16px;
+                    position: absolute;
+                    right: 25px;
+                    top: 23px;
+                    color: var(--tg-color-black-2);
+                    font-weight: 700;
+                    line-height: 1;
+                }
+            }
+            &-body {
+                padding: 0 25px 20px;
+                & p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

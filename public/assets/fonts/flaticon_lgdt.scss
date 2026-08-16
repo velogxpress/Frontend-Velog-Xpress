@@ -1,0 +1,233 @@
+$flaticon_lgdt-font: "flaticon_lgdt";
+
+@font-face {
+    font-family: $flaticon_lgdt-font;
+    src: url("./flaticon_lgdt.ttf?9f88cdf23dc0e4e7ace21f0b9ac5d196") format("truetype"),
+url("./flaticon_lgdt.woff?9f88cdf23dc0e4e7ace21f0b9ac5d196") format("woff"),
+url("./flaticon_lgdt.woff2?9f88cdf23dc0e4e7ace21f0b9ac5d196") format("woff2"),
+url("./flaticon_lgdt.eot?9f88cdf23dc0e4e7ace21f0b9ac5d196#iefix") format("embedded-opentype"),
+url("./flaticon_lgdt.svg?9f88cdf23dc0e4e7ace21f0b9ac5d196#flaticon_lgdt") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon_lgdt !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon_lgdt-map: (
+    "cargo": "\f101",
+    "ship": "\f102",
+    "protected": "\f103",
+    "truck": "\f104",
+    "train": "\f105",
+    "oil-train": "\f106",
+    "crane": "\f107",
+    "tank-truck": "\f108",
+    "tank-truck-1": "\f109",
+    "cargo-1": "\f10a",
+    "box": "\f10b",
+    "warehouse": "\f10c",
+    "forklift": "\f10d",
+    "container": "\f10e",
+    "warehouse-1": "\f10f",
+    "delivery": "\f110",
+    "delivery-cart": "\f111",
+    "air-freight": "\f112",
+    "air-plane": "\f113",
+    "delivery-man": "\f114",
+    "global-distribution": "\f115",
+    "placeholder": "\f116",
+    "package": "\f117",
+    "planet-earth": "\f118",
+    "replacement": "\f119",
+    "location": "\f11a",
+    "supplies": "\f11b",
+    "money": "\f11c",
+    "parcels": "\f11d",
+    "parcel": "\f11e",
+    "support": "\f11f",
+    "hand-shake": "\f120",
+    "location-1": "\f121",
+    "envelope": "\f122",
+    "time": "\f123",
+    "telephone": "\f124",
+    "search": "\f125",
+    "down": "\f126",
+    "uptrend": "\f127",
+    "right-up": "\f128",
+    "diagonal-arrow": "\f129",
+    "up-right-arrow": "\f12a",
+    "check": "\f12b",
+    "play": "\f12c",
+    "big-box": "\f12d",
+    "send": "\f12e",
+    "down-arrow": "\f12f",
+    "left-arrow": "\f130",
+    "right-arrow": "\f131",
+    "calendar": "\f132",
+    "calendar-1": "\f133",
+    "waving-flag": "\f134",
+);
+
+.flaticon-cargo:before {
+    content: map-get($flaticon_lgdt-map, "cargo");
+}
+.flaticon-ship:before {
+    content: map-get($flaticon_lgdt-map, "ship");
+}
+.flaticon-protected:before {
+    content: map-get($flaticon_lgdt-map, "protected");
+}
+.flaticon-truck:before {
+    content: map-get($flaticon_lgdt-map, "truck");
+}
+.flaticon-train:before {
+    content: map-get($flaticon_lgdt-map, "train");
+}
+.flaticon-oil-train:before {
+    content: map-get($flaticon_lgdt-map, "oil-train");
+}
+.flaticon-crane:before {
+    content: map-get($flaticon_lgdt-map, "crane");
+}
+.flaticon-tank-truck:before {
+    content: map-get($flaticon_lgdt-map, "tank-truck");
+}
+.flaticon-tank-truck-1:before {
+    content: map-get($flaticon_lgdt-map, "tank-truck-1");
+}
+.flaticon-cargo-1:before {
+    content: map-get($flaticon_lgdt-map, "cargo-1");
+}
+.flaticon-box:before {
+    content: map-get($flaticon_lgdt-map, "box");
+}
+.flaticon-warehouse:before {
+    content: map-get($flaticon_lgdt-map, "warehouse");
+}
+.flaticon-forklift:before {
+    content: map-get($flaticon_lgdt-map, "forklift");
+}
+.flaticon-container:before {
+    content: map-get($flaticon_lgdt-map, "container");
+}
+.flaticon-warehouse-1:before {
+    content: map-get($flaticon_lgdt-map, "warehouse-1");
+}
+.flaticon-delivery:before {
+    content: map-get($flaticon_lgdt-map, "delivery");
+}
+.flaticon-delivery-cart:before {
+    content: map-get($flaticon_lgdt-map, "delivery-cart");
+}
+.flaticon-air-freight:before {
+    content: map-get($flaticon_lgdt-map, "air-freight");
+}
+.flaticon-air-plane:before {
+    content: map-get($flaticon_lgdt-map, "air-plane");
+}
+.flaticon-delivery-man:before {
+    content: map-get($flaticon_lgdt-map, "delivery-man");
+}
+.flaticon-global-distribution:before {
+    content: map-get($flaticon_lgdt-map, "global-distribution");
+}
+.flaticon-placeholder:before {
+    content: map-get($flaticon_lgdt-map, "placeholder");
+}
+.flaticon-package:before {
+    content: map-get($flaticon_lgdt-map, "package");
+}
+.flaticon-planet-earth:before {
+    content: map-get($flaticon_lgdt-map, "planet-earth");
+}
+.flaticon-replacement:before {
+    content: map-get($flaticon_lgdt-map, "replacement");
+}
+.flaticon-location:before {
+    content: map-get($flaticon_lgdt-map, "location");
+}
+.flaticon-supplies:before {
+    content: map-get($flaticon_lgdt-map, "supplies");
+}
+.flaticon-money:before {
+    content: map-get($flaticon_lgdt-map, "money");
+}
+.flaticon-parcels:before {
+    content: map-get($flaticon_lgdt-map, "parcels");
+}
+.flaticon-parcel:before {
+    content: map-get($flaticon_lgdt-map, "parcel");
+}
+.flaticon-support:before {
+    content: map-get($flaticon_lgdt-map, "support");
+}
+.flaticon-hand-shake:before {
+    content: map-get($flaticon_lgdt-map, "hand-shake");
+}
+.flaticon-location-1:before {
+    content: map-get($flaticon_lgdt-map, "location-1");
+}
+.flaticon-envelope:before {
+    content: map-get($flaticon_lgdt-map, "envelope");
+}
+.flaticon-time:before {
+    content: map-get($flaticon_lgdt-map, "time");
+}
+.flaticon-telephone:before {
+    content: map-get($flaticon_lgdt-map, "telephone");
+}
+.flaticon-search:before {
+    content: map-get($flaticon_lgdt-map, "search");
+}
+.flaticon-down:before {
+    content: map-get($flaticon_lgdt-map, "down");
+}
+.flaticon-uptrend:before {
+    content: map-get($flaticon_lgdt-map, "uptrend");
+}
+.flaticon-right-up:before {
+    content: map-get($flaticon_lgdt-map, "right-up");
+}
+.flaticon-diagonal-arrow:before {
+    content: map-get($flaticon_lgdt-map, "diagonal-arrow");
+}
+.flaticon-up-right-arrow:before {
+    content: map-get($flaticon_lgdt-map, "up-right-arrow");
+}
+.flaticon-check:before {
+    content: map-get($flaticon_lgdt-map, "check");
+}
+.flaticon-play:before {
+    content: map-get($flaticon_lgdt-map, "play");
+}
+.flaticon-big-box:before {
+    content: map-get($flaticon_lgdt-map, "big-box");
+}
+.flaticon-send:before {
+    content: map-get($flaticon_lgdt-map, "send");
+}
+.flaticon-down-arrow:before {
+    content: map-get($flaticon_lgdt-map, "down-arrow");
+}
+.flaticon-left-arrow:before {
+    content: map-get($flaticon_lgdt-map, "left-arrow");
+}
+.flaticon-right-arrow:before {
+    content: map-get($flaticon_lgdt-map, "right-arrow");
+}
+.flaticon-calendar:before {
+    content: map-get($flaticon_lgdt-map, "calendar");
+}
+.flaticon-calendar-1:before {
+    content: map-get($flaticon_lgdt-map, "calendar-1");
+}
+.flaticon-waving-flag:before {
+    content: map-get($flaticon_lgdt-map, "waving-flag");
+}

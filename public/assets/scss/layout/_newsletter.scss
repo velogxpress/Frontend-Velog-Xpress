@@ -1,0 +1,170 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Newsletter
+===============================*/
+.newsletter {
+    &__wrap {
+        margin-top: -85px;
+        @include border-radius(8px);
+        overflow: hidden;
+    }
+    &__content {
+        background: rgb(82, 174, 29);
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        @include flexbox();
+        flex-direction: column;
+        justify-content: center;
+        padding: 50px 60px;
+        @media #{$lg} {
+            padding: 30px 25px;
+        }
+        @media #{$md} {
+            padding: 30px 30px;
+        }
+        & .title {
+            @include flexbox();
+            align-items: center;
+            margin-bottom: 22px;
+            font-weight: 800;
+            font-size: 24px;
+            text-transform: capitalize;
+            gap: 6px;
+            color: var(--tg-color-white-default);
+            & i {
+                font-size: 30px;
+                line-height: 0;
+                transform: translateY(5px);
+            }
+        }
+        & .shape {
+            position: absolute;
+            right: 32px;
+            bottom: 10%;
+            z-index: -1;
+            max-width: 161px;
+            -webkit-animation-duration: 25s;
+            animation-duration: 25s;
+            @media #{$lg} {
+                max-width: 120px;
+            }
+        }
+        &-left {
+            position: relative;
+            background: var(--tg-color-gray-9);
+            padding: 40px 60px 40px 40px;
+            @include flexbox();
+            z-index: 1;
+            align-items: center;
+            gap: 24px;
+            @media #{$lg} {
+                padding: 30px 20px 30px 20px;
+                gap: 20px;
+            }
+            @media #{$md} {
+                padding: 30px 30px 30px 30px;
+            }
+            @media #{$xs} {
+                flex-direction: column;
+                text-align: center;
+            }
+            & .title {
+                margin-bottom: 0;
+                font-size: 32px;
+                font-weight: 800;
+                @media #{$lg} {
+                    font-size: 26px;
+                }
+                @media #{$md} {
+                    font-size: 28px;
+                }
+            }
+            & .shape {
+                position: absolute;
+                right: 16px;
+                bottom: 0;
+                z-index: -1;
+                max-width: 91px;
+            }
+        }
+    }
+    &__form {
+        @include flexbox();
+        align-items: center;
+        gap: 15px;
+        @media #{$xs} {
+            flex-direction: column;
+        }
+        & input {
+            width: 100%;
+            border: none;
+            background: #a90005;
+            color: var(--tg-color-white-default);
+            font-size: 16px;
+            font-weight: 500;
+            @include border-radius(6px);
+            padding: 10px 20px 12px;
+            height: 50px;
+            &::placeholder {
+                font-size: 16px;
+                font-weight: 500;
+                color: #ffa5a7;
+            }
+        }
+        & button {
+            border: none;
+            white-space: nowrap;
+            padding: 17px 26px;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            background: #fef9fa;
+            line-height: 1;
+            border-radius: 5px;
+            color: var(--tg-color-black-2);
+            @media #{$xs} {
+                width: 100%;
+            }
+            &:hover {
+                background: var(--tg-theme-secondary);
+                color: var(--tg-color-white-default);
+            }
+        }
+    }
+}
+.experiences__wrap {
+    background: rgb(82, 174, 29);
+    @include border-radius(15px);
+    text-align: center;
+    padding: 13px 24px;
+    @media #{$lg} {
+        padding: 13px 18px;
+    }
+    & .count {
+        font-weight: 800;
+        font-size: 80px;
+        color: var(--tg-color-white-default);
+        text-shadow: 7px 6px 0 0 #a30005;
+        line-height: .8;
+        margin-bottom: 12px;
+        @media #{$lg} {
+            font-size: 65px;
+        }
+    }
+    & span {
+        font-size: 14px;
+        line-height: 1.2;
+        display: block;
+        text-transform: uppercase;
+        color: var(--tg-color-white-default);
+        font-weight: 700;
+        & strong {
+            font-weight: 600;
+            font-size: 17px;
+            text-transform: capitalize;
+            display: block;
+        }
+    }
+}

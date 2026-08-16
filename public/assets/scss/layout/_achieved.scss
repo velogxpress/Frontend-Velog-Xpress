@@ -1,0 +1,107 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Achieved
+===============================*/
+.achieved {
+    &__area {
+        position: relative;
+        z-index: 1;
+    }
+    &__content {
+        padding: 140px 0;
+        width: 85%;
+        @media #{$lg} {
+            width: 100%;
+            padding: 120px 0;
+        }
+        @media #{$md} {
+            padding: 50px 0 120px;
+        }
+        @media #{$xs} {
+            padding: 50px 0 100px;
+        }
+        & p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+    }
+    &__shape {
+        & img {
+            position: absolute;
+            right: 8%;
+            bottom: 70px;
+            z-index: -1;
+            @media #{$md} {
+                right: 0%;
+                bottom: auto;
+                top: 10%;
+            }
+        }
+    }
+}
+
+.progress {
+    &__item {
+        margin-bottom: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &-top {
+            @include flexbox();
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        & .progress {
+            background-color: #E1E6E9;
+            @include border-radius(100px);
+            height: 8px;
+            & .progress-bar {
+                background-color: var(--tg-theme-secondary);
+                @include border-radius(100px);
+            }
+        }
+        &-two {
+            & .progress {
+                & .progress-bar {
+                    background-color: rgb(82, 174, 29);
+                }
+                &__title {
+                    color: var(--tg-color-white-default);
+                }
+                &-value {
+                    color: var(--tg-color-white-default);
+                    & .counter-number {
+                        color: var(--tg-color-white-default);
+                    }
+                }
+            }
+        }
+        &-three {
+            & .progress {
+                & .progress-bar {
+                    background-color: rgb(82, 174, 29);
+                }
+            }
+        }
+    }
+    &__title {
+        margin-bottom: 0;
+        font-size: 20px;
+        text-transform: capitalize;
+    }
+    &-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--tg-heading-color);
+        @include flexbox();
+        align-items: center;
+        gap: 1px;
+        & .counter-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--tg-heading-color);
+        }
+    }
+}

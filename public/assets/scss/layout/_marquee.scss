@@ -1,0 +1,94 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Marquee
+===============================*/
+.marquee {
+    &__area {
+        padding: 0 0 120px;
+        @media #{$md} {
+            padding: 0 0 100px;
+        }
+        @media #{$xs} {
+            padding: 0 0 80px;
+        }
+    }
+    &__item {
+        margin-right: 20px;
+        display: inline;
+        line-height: 1;
+        & a {
+            font-size: 50px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--tg-body-color);
+            @media #{$lg} {
+                font-size: 42px;
+            }
+            @media #{$md} {
+                font-size: 38px;
+            }
+            @media #{$xs} {
+                font-size: 32px;
+            }
+            @media #{$sm} {
+                font-size: 34px;
+            }
+            &:hover {
+                color: rgb(82, 174, 29);
+                -webkit-text-stroke: 1.5px rgb(82, 174, 29);
+            }
+            & svg {
+                color: var(--tg-theme-secondary);
+                margin-right: 10px;
+                transform: translateY(-5px);
+                @media #{$lg} {
+                    width: 38px;
+                }
+                @media #{$md} {
+                    width: 36px;
+                }
+                @media #{$xs} {
+                    width: 32px;
+                }
+            }
+        }
+        &-two {
+            & a {
+                &:hover {
+                    color: rgb(82, 174, 29);
+                    -webkit-text-stroke: 1.5px var(--tg-theme-primary);
+                }
+                & svg {
+                    color: rgb(82, 174, 29);
+                }
+            }
+        }
+        &-three {
+            & a {
+                -webkit-text-stroke: 1.5px var(--tg-color-gray-13);
+                &:hover {
+                    color: var(--tg-color-white-default);
+                    -webkit-text-stroke: 1.5px var(--tg-color-white-default);
+                }
+                & svg {
+                    color: rgb(82, 174, 29);
+                }
+            }
+        }
+        &-four {
+            & a {
+                -webkit-text-stroke: 1.5px var(--tg-color-gray-13);
+                & svg {
+                    color: rgb(82, 174, 29);
+                }
+            }
+        }
+    }
+}
+.marquee-wrap .marquee__group .m-item {
+    margin-right: 25px;
+    display: inline;
+}

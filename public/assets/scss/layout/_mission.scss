@@ -1,0 +1,63 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Mission
+===============================*/
+.mission {
+    &__inner-wrap {
+        position: relative;
+    }
+    &__img {
+        max-width: 728px;
+        margin-left: auto;
+        @media #{$lg} {
+            max-width: 600px;
+        }
+        @media #{$md} {
+            max-width: 100%;
+            width: 100%;
+        }
+        & img {
+            @include border-radius(10px);
+            width: 100%;
+        }
+    }
+    &__content {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--tg-color-white-default);
+        border: 1px solid #E9E9E9;
+        @include border-radius(10px);
+        max-width: 612px;
+        padding: 75px 90px 85px;
+        @media #{$lg} {
+            max-width: 530px;
+            padding: 50px 50px 50px;
+        }
+        @media #{$md} {
+            max-width: 100%;
+            position: inherit;
+            top: 0;
+            transform: translate(0);
+            margin-top: 50px;
+        }
+        @media #{$xs} {
+            padding: 30px 25px;
+            margin-top: 40px;
+        }
+        @media #{$sm} {
+            padding: 40px 40px;
+        }
+        & p {
+            margin-bottom: 15px;
+        }
+        & .shape {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    }
+}

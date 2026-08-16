@@ -1,0 +1,92 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Pricing
+===============================*/
+.pricing {
+    &__box {
+        background: var(--tg-color-white-default);
+        padding: 60px 70px 70px;
+        text-align: center;
+        margin-bottom: 30px;
+        @include border-radius(15px);
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+        @media #{$lg} {
+            padding: 40px 20px 40px;
+        }
+        @media #{$xs} {
+            padding: 40px 40px 40px;
+        }
+    }
+    &__top {
+        & .title {
+            font-size: 20px;
+            margin-bottom: 30px;
+            @media #{$lg} {
+                margin-bottom: 20px;
+            }
+        }
+    }
+    &__price {
+        & .price {
+            margin-bottom: 40px;
+            font-size: 70px;
+            display: flex;
+            justify-content: center;
+            line-height: .8;
+            @media #{$lg} {
+                margin-bottom: 30px;
+                font-size: 50px;
+            }
+            & span {
+                font-size: 24px;
+                line-height: 1;
+                display: block;
+                margin-top: 5px;
+            }
+            & strong {
+                font-size: 20px;
+                margin-top: auto;
+            }
+        }
+    }
+    &__content {
+        & p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: var(--tg-color-gray-7);
+        }
+    }
+    &__list {
+        margin-bottom: 35px;
+        & li {
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--tg-color-gray-7);
+            text-transform: capitalize;
+            gap: 8px;
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            & i {
+                color: rgb(82, 174, 29);
+                line-height: 0;
+            }
+        }
+    }
+    &__btn {
+        & .btn {
+            background: rgb(82, 174, 29);
+            border-radius: 30px;
+            padding: 17px 38px;
+            font-size: 18px;
+            &:hover {
+                background: var(--tg-color-black-2);
+            }
+        }
+    }
+}

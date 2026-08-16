@@ -1,0 +1,226 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Testimonial
+===============================*/
+.testimonial {
+    &__area {
+        background: var(--tg-color-gray-4);
+        padding: 90px 0 140px;
+        position: relative;
+        z-index: 1;
+        @media #{$md} {
+            padding: 90px 0 100px;
+        }
+        &-two {
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: -80px;
+                width: 500px;
+                height: 500px;
+                @include border-radius(50%);
+                z-index: -1;
+                background: linear-gradient(180deg, rgba(252, 170, 172, 0.06) 0%, rgba(255, 239, 221, 0.50) 100%);
+                filter: blur(150px);
+            }
+        }
+        &-four {
+            position: relative;
+            padding: 100px 0 140px;
+            z-index: 1;
+        }
+    }
+    &__inner {
+        &-wrap {
+            background: var(--tg-color-white-default);
+            padding: 80px 0;
+            border: 1px solid #CECECE;
+            @include border-radius(10px);
+            @media #{$xs} {
+                padding: 40px 10px;
+            }
+        }
+    }
+    &__wrap {
+        text-align: center;
+    }
+    &__icon {
+        margin-bottom: 25px;
+        & svg {
+            color: var(--tg-theme-secondary);
+        }
+        &-two {
+            & svg {
+                color: rgb(82, 174, 29);
+            }
+        }
+    }
+    &__nav {
+        & .swiper-wrapper {
+            @include flexbox();
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+            & button {
+                border: none;
+                background: transparent;
+                padding: 0;
+                @include border-radius(50%);
+                position: relative;
+                width: 65px;
+                & img {
+                    @include border-radius(50%);
+                    width: 100%;
+                    filter: grayscale(1);
+                }
+            }
+            & .swiper-slide {
+                width: auto !important;
+            }
+        }
+        & .swiper-slide-thumb-active {
+            & button {
+                & img {
+                    filter: grayscale(0);
+                }
+            }
+        }
+        &-wrap {
+            @media #{$xs} {
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 20px;
+            }
+            & button {
+                border: none;
+                width: 50px;
+                height: 50px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                background: var(--tg-color-white-default);
+                @include border-radius(50%);
+                font-size: 22px;
+                color: var(--tg-heading-color);
+                line-height: 0;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 0;
+                z-index: 2;
+                @include transition(.3s);
+                @media #{$md} {
+                    left: 7px;
+                }
+                @media #{$xs} {
+                    transform: translateY(0);
+                    position: inherit;
+                }
+                &:hover {
+                    background: var(--tg-heading-color);
+                    color: var(--tg-color-white-default);
+                }
+                &.testimonial-button-next {
+                    right: 0;
+                    left: auto;
+                    @media #{$md} {
+                        right: 7px;
+                    }
+                }
+            }
+            &-two {
+                & button {
+                    border: 1px solid #D6D6D6;
+                    color: var(--tg-color-black-2);
+                    &:hover {
+                        background: rgb(82, 174, 29);
+                        border-color: rgb(82, 174, 29);
+                        color: var(--tg-color-white-default);
+                    }
+                }
+            }
+            &-three {
+                & button {
+                    background: var(--tg-color-gray-8);
+                    color: var(--tg-color-white-default);
+                    &:hover {
+                        background: rgb(82, 174, 29);
+                    }
+                }
+            }
+        }
+    }
+    &-active {
+        position: relative;
+    }
+    &__item {
+        & .name {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        & span {
+            display: block;
+            font-size: 16px;
+            line-height: 1;
+            color: var(--tg-body-color);
+            margin-bottom: 15px;
+        }
+    }
+    &__rating {
+        @include flexbox();
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 15px;
+        & i {
+            font-size: 18px;
+            color: var(--tg-color-yellow-light);
+            &:last-child {
+                color: var(--tg-color-yellow-light-2);
+            }
+        }
+    }
+    &__content {
+        & p {
+            font-size: 18px;
+            font-style: italic;
+            text-transform: capitalize;
+            line-height: 1.6;
+            width: 65%;
+            margin: 0 auto;
+            @media #{$md} {
+                width: 75%;
+            }
+            @media #{$xs} {
+                width: 100%;
+            }
+        }
+        &-two {
+            & p {
+                width: 70%;
+                @media #{$lg} {
+                    width: 80%;
+                }
+                @media #{$xs} {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &__shape {
+        & img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            top: -190px;
+        }
+    }
+}

@@ -1,0 +1,364 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Request
+===============================*/
+.request {
+    &__area {
+        background: var(--tg-color-gray-4);
+        &-two {
+            position: relative;
+        }
+    }
+    &__wrap {
+        margin-top: -130px;
+        position: relative;
+        z-index: 2;
+        &-two {
+            background: var(--tg-color-white-default);
+            padding: 50px 60px 60px;
+            @include border-radius(15px);
+            margin-left: 100px;
+            @media #{$lg} {
+                margin-left: 0;
+                padding: 45px 50px 50px;
+            }
+            @media #{$xs} {
+                padding: 35px 30px 40px;
+            }
+            & .title {
+                margin-bottom: 15px;
+                font-size: 30px;
+                font-weight: 800;
+            }
+        }
+    }
+    &__nav {
+        & .nav-tabs {
+            border: none;
+            display: inline-flex;
+            @include border-radius(10px 10px 0px 0px);
+            overflow: hidden;
+        }
+        & .nav-link {
+            @include flexbox();
+            align-items: center;
+            padding: 0;
+            border: none;
+            color: var(--tg-color-white-default);
+            font-size: 20px;
+            font-weight: 600;
+            gap: 12px;
+            background: var(--tg-heading-color);
+            padding: 18px 61px;
+            @include border-radius(0px);
+            @media #{$md} {
+                padding: 18px 35px;
+            }
+            @media #{$xs} {
+                padding: 15px 20px;
+                font-size: 15px;
+                gap: 8px;
+            }
+            & i {
+                font-size: 30px;
+                line-height: 0;
+                @media #{$xs} {
+                    font-size: 20px;
+                }
+            }
+            &.active {
+                background: var(--tg-theme-secondary);
+                color: var(--tg-color-white-default);
+            }
+        }
+        &-two {
+            & .nav-link  {
+                &.active {
+                    background: rgb(82, 174, 29);
+                    color: var(--tg-color-white-default);
+                }
+            }
+        }
+    }
+    &__form {
+        @include border-radius(0px 10px 10px 10px);
+        background: var(--tg-color-white-default);
+        box-shadow: 0px 3px 30px 0px rgba(0, 0, 0, 0.08);
+        padding: 30px 40px 45px;
+        @media #{$lg} {
+            padding: 30px 30px 45px;
+        }
+        & .title {
+            font-size: 16px;
+            font-weight: 600;
+            display: block;
+            color: var(--tg-body-color);
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+        & .form-grp {
+            margin-bottom: 20px;
+            flex-grow: 1;
+            width: 100%;
+            & textarea,
+            & input {
+                width: 100%;
+                border: 1px solid var(--tg-border-6);
+                @include border-radius(4px);
+                font-size: 14px;
+                color: var(--tg-body-color);
+                line-height: 1;
+                padding: 15px 20px;
+                &::placeholder {
+                    color: #838383;
+                    font-size: 14px;
+                }
+            }
+            & textarea {
+                min-height: 122px;
+                max-height: 122px;
+            }
+            &.select-grp {
+                position: relative;
+                & select {
+                    background-color: transparent;
+                    border: 1px solid var(--tg-border-6);
+                    color: var(--tg-body-color);
+                    font-weight: 400;
+                    font-size: 14px;
+                    text-transform: capitalize;
+                    border-radius: 4px;
+                    outline: none;
+                    padding: 13px 50px 13px 20px;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    width: 100%;
+                    line-height: 1.4;
+                    height: 50px;
+                    cursor: pointer;
+                }
+                &::after {
+                    content: "\f12f";
+                    position: absolute;
+                    bottom: 15px;
+                    font-family: "flaticon";
+                    font-weight: 400;
+                    right: 20px;
+                    font-size: 20px;
+                    color: var(--tg-body-color);
+                    line-height: 1;
+                }
+            }
+            &-wrap {
+                @include flexbox();
+                align-items: center;
+                gap: 20px;
+                @media #{$xs} {
+                    flex-wrap: wrap;
+                    gap: 0;
+                }
+                @media #{$sm} {
+                    flex-wrap: nowrap;
+                    gap: 20px;
+                }
+            }
+        }
+        & .btn {
+            width: 100%;
+            justify-content: center;
+            font-size: 18px;
+            padding: 19px 28px;
+            &::before {
+                display: none;
+            }
+            &:hover {
+                background: var(--tg-theme-secondary)
+            }
+        }
+        &-two {
+            & .btn {
+                background: var(--tg-theme-secondary);
+                &:hover {
+                    background: rgb(82, 174, 29);
+                }
+            }
+        }
+        &-three {
+            & .form-grp {
+                margin-bottom: 20px;
+                &.select-grp {
+                    position: relative;
+                    & select {
+                        background-color: #F5F5F5;
+                        border: none;
+                        color: var(--tg-body-color);
+                        font-weight: 400;
+                        font-size: 15px;
+                        text-transform: capitalize;
+                        border-radius: 4px;
+                        outline: none;
+                        padding: 13px 50px 13px 20px;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                        width: 100%;
+                        line-height: 1.4;
+                        height: 50px;
+                        cursor: pointer;
+                        @include border-radius(4px);
+                    }
+                    &::after {
+                        content: "\f12f";
+                        position: absolute;
+                        bottom: 15px;
+                        font-family: "flaticon";
+                        font-weight: 400;
+                        right: 20px;
+                        font-size: 20px;
+                        color: var(--tg-body-color);
+                        line-height: 1;
+                    }
+                }
+                & input {
+                    background-color: #F5F5F5;
+                    border: none;
+                    width: 100%;
+                    height: 50px;
+                    font-size: 15px;
+                    font-weight: 400;
+                    text-transform: capitalize;
+                    padding: 15px 20px;
+                    color: var(--tg-body-color);
+                    @include border-radius(4px);
+                    &::placeholder {
+                        font-size: 15px;
+                        font-weight: 400;
+                        text-transform: capitalize;
+                        color: var(--tg-body-color);
+                    }
+                }
+            }
+            & button {
+                width: 100%;
+                background: var(--tg-theme-secondary);
+                justify-content: center;
+                &:hover {
+                    background: rgb(82, 174, 29);
+                }
+            }
+        }
+    }
+    &__radio-wrap {
+        @include flexbox();
+        align-items: center;
+        gap: 20px;
+        margin-top: 10px;
+        margin-bottom: 35px;
+        flex-wrap: wrap;
+        & .form-check {
+            @include flexbox();
+            align-items: center;
+            margin-bottom: 0;
+            line-height: 1.2;
+            gap: 6px;
+            min-height: auto;
+            padding: 0;
+            &-input {
+                margin: 0;
+                width: 20px;
+                height: 20px;
+                border: 2px solid #BEBEBE;
+                &:checked {
+                    background-color: var(--tg-theme-secondary);
+                    border-color: var(--tg-theme-secondary);
+                }
+                &:checked~.form-check-label {
+                    color: var(--tg-body-color);
+                }
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+            &-label {
+                font-size: 14px;
+                font-weight: 500;
+                color: #838383;
+                user-select: none;
+            }
+        }
+        &-two {
+            & .form-check {
+                &-input {
+                    &:checked {
+                        background-color: rgb(82, 174, 29);
+                        border-color: rgb(82, 174, 29);
+                    }
+                }
+            }
+        }
+    }
+    &__shape {
+        & img {
+            position: absolute;
+            z-index: -1;
+            left: 50px;
+            top: 0;
+            max-width: 217px;
+            @media #{$xxl} {
+                left: 20px;
+                max-width: 160px;
+            }
+        }
+    }
+}
+
+.price {
+    &_slider_amount {
+        @include flexbox;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        & span {
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+            color: var(--tg-body-color);
+        }
+        & input {
+            border: none;
+            padding: 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--tg-body-color);
+            text-align: right;
+            width: 140px;
+        }
+    }
+}
+.ui-widget {
+    &-content {
+        background: #ECECEC;
+        border: none;
+        height: 6px;
+        @include border-radius(100px);
+        margin-bottom: 24px;
+        & .ui-slider-handle {
+            border: none;
+            width: 8px;
+            height: 16px;
+            background: rgb(82, 174, 29);
+            @include border-radius(100px);
+            margin-left: -2px;
+            color: rgb(82, 174, 29);
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+    &-header {
+        background: rgb(82, 174, 29);
+    }
+}

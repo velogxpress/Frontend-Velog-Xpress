@@ -1,0 +1,160 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Cta
+===============================*/
+.cta {
+    &__area {
+        &-two {
+            background: var(--tg-color-gray-12);
+        }
+    }
+    &__wrap {
+        background: rgb(82, 174, 29);
+        @include border-radius(0 0 10px 10px);
+        padding: 50px 55px 50px;
+        position: relative;
+        z-index: 1;
+        @media #{$lg} {
+            padding: 40px 30px 40px;
+        }
+        @media #{$md} {
+            padding: 30px 30px 30px;
+        }
+        &-two {
+            background: rgb(82, 174, 29);
+            border-radius: 15px;
+            overflow: hidden;
+            @include flexbox();
+            position: relative;
+            z-index: 2;
+        }
+        &-three {
+            background: var(--tg-color-white-default);
+            border: 1px solid #E6E6E6;
+            margin-top: -100px;
+        }
+    }
+    &__content {
+        @media #{$md} {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        & .title {
+            color: var(--tg-color-white-default);
+            margin-bottom: 0;
+            font-size: 30px;
+            text-transform: capitalize;
+            @media #{$lg} {
+                font-size: 28px;
+            }
+            @media #{$xs} {
+                font-size: 25px;
+            }
+            & br {
+                @media #{$md} {
+                    display: none;
+                }
+            }
+        }
+        &-two {
+            @include flexbox();
+            align-items: center;
+            padding: 50px 65px;
+            gap: 30px;
+            @media #{$lg} {
+                padding: 35px 25px;
+            }
+            @media #{$md} {
+                padding: 35px 35px;
+            }
+            @media #{$xs} {
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                gap: 20px;
+            }
+            & .title {
+                color: var(--tg-color-white-default);
+                margin-bottom: 5px;
+                font-size: 30px;
+                @media #{$xs} {
+                    font-size: 28px;
+                }
+                @media #{$sm} {
+                    font-size: 30px;
+                }
+            }
+            & p {
+                margin-bottom: 0;
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--tg-color-white-default);
+            }
+        }
+        &-three {
+            & .title {
+                color: var(--tg-heading-color);
+            }
+            & p {
+                color: var(--tg-body-color);
+            }
+        }
+    }
+    &__btn {
+        @media #{$md} {
+            text-align: center !important;
+        }
+        &-two {
+            & .btn {
+                background: var(--tg-color-white-default);
+                color: rgb(82, 174, 29);
+                &:hover {
+                    color: var(--tg-color-white-default);
+                    background: var(--tg-color-black-2);
+                }
+            }
+        }
+        &-three {
+            & .btn {
+                background: var(--tg-theme-secondary);
+                color: var(--tg-color-white-default);
+                &:hover {
+                    background: rgb(82, 174, 29);
+                }
+            }
+        }
+    }
+    &__img {
+        width: 387px;
+        flex: 0 0 auto;
+        @media #{$lg} {
+            width: 300px;
+        }
+        @media #{$md} {
+            display: none;
+        }
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__shape {
+        & img {
+            position: absolute;
+            right: 25%;
+            top: 23%;
+            z-index: -1;
+            max-width: 113px;
+            @media #{$lg} {
+                right: 28%;
+                top: 20%;
+                max-width: 100px;
+            }
+            @media #{$md} {
+                display: none;
+            }
+        }
+    }
+}

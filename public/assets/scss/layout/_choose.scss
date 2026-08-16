@@ -1,0 +1,241 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Choose
+===============================*/
+.choose {
+    &__area {
+        &-two {
+            position: relative;
+            z-index: 1;
+            &::before {
+                content: "";
+                position: absolute;
+                width: 464px;
+                height: 464px;
+                right: 28px;
+                top: -50px;
+                border-radius: 50%;
+                opacity: 0.7;
+                background: linear-gradient(180deg, #FCAAAC 0%, #FFEFDD 100%);
+                filter: blur(150px);
+                z-index: -1;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                width: 464px;
+                height: 464px;
+                left: -37px;
+                bottom: 0;
+                border-radius: 50%;
+                opacity: 0.7;
+                background: linear-gradient(180deg, #FCAAAC 0%, #FFEFDD 100%);
+                filter: blur(150px);
+                z-index: -1;
+            }
+        }
+    }
+    &__bg {
+        padding: 120px 0;
+        background-size: cover;
+        background-position: center;
+        background-color: rgb(82, 174, 29);
+        @media #{$xs} {
+            padding: 100px 0;
+        }
+    }
+    &__img {
+        margin-left: -90px;
+        @include border-radius(15px);
+        overflow: hidden;
+        @media #{$xl} {
+            margin-left: -40px;
+        }
+        @media #{$lg} {
+            margin-left: 0;
+        }
+        @media #{$md} {
+            margin-bottom: 50px;
+        }
+        & img {
+            @include border-radius(15px);
+            max-width: unset;
+            @media #{$xs} {
+                max-width: 100%;
+            }
+        }
+        &-two {
+            position: relative;
+            @media #{$md} {
+                margin-bottom: 50px;
+            }
+            & .main-img {
+                & img {
+                    @include border-radius(10px);
+                    @media #{$xs} {
+                        width: 100%;
+                    }
+                }
+            }
+            & .shape {
+                background: var(--tg-color-white-default);
+                padding: 38px 14px;
+                @include border-radius(10px);
+                position: absolute;
+                right: -25px;
+                bottom: 16%;
+                @media #{$xs} {
+                    display: none;
+                }
+            }
+        }
+    }
+    &__content {
+        margin-left: 45px;
+        @media #{$lg} {
+            margin-left: 0;
+        }
+        &-two {
+            margin-left: 65px;
+            @media #{$lg} {
+                margin-left: 20px;
+            }
+            @media #{$md} {
+                margin-left: 0;
+            }
+            & > p {
+                margin-bottom: 25px;
+            }
+        }
+        &-inner {
+            @include flexbox();
+            align-items: center;
+            gap: 20px 50px;
+            margin-bottom: 45px;
+            @media #{$lg} {
+                gap: 20px 25px;
+            }
+            @media #{$xs} {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & > p {
+                margin-bottom: 0;
+                width: 53%;
+                margin-left: auto;
+                @media #{$xs} {
+                    width: 100%;
+                }
+            }
+            & .about__list-box {
+                & .list-wrap {
+                    margin-bottom: 0;
+                }
+            }
+        }
+        &-bottom {
+            @include flexbox();
+            align-items: center;
+            gap: 30px 50px;
+            @media #{$lg} {
+                gap: 30px 30px;
+            }
+            @media #{$xs} {
+                flex-wrap: wrap;
+                flex-direction: column-reverse;
+                align-items: flex-start;
+            }
+            & .left-side {
+                width: 54%;
+                flex: 0 0 auto;
+                position: relative;
+                @media #{$xs} {
+                    width: 100%;
+                }
+                &::before {
+                    content: "";
+                    position: absolute;
+                    right: -25px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 3px;
+                    height: 100%;
+                    background: #2139A3;
+                    @include border-radius(3px);
+                    @media #{$lg} {
+                        right: -15px;
+                    }
+                    @media #{$xs} {
+                        display: none;
+                    }
+                }
+                & > p {
+                    color: var(--tg-color-gray-5);
+                    margin-bottom: 25px;
+                }
+            }
+        }
+    }
+    &__list {
+        &-item {
+            margin-bottom: 30px;
+            @include flexbox();
+            align-items: center;
+            gap: 15px;
+            & .icon {
+                width: 80px;
+                height: 80px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                flex: 0 0 auto;
+                background: var(--tg-color-white-default);
+                @include border-radius(10px);
+                border: 1.5px solid rgb(82, 174, 29);
+                color: rgb(82, 174, 29);
+                font-size: 50px;
+                line-height: 0;
+                @include transition(.5s);
+            }
+            & .content {
+                & .title {
+                    margin-bottom: 10px;
+                    font-size: 20px;
+                    font-weight: 700;
+                    text-transform: capitalize;
+                }
+                & p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    line-height: 1.5;
+                }
+            }
+            &:hover {
+                & .icon {
+                    transform: rotateY(180deg);
+                }
+            }
+        }
+    }
+    &__shape {
+        & img {
+            position: absolute;
+            z-index: -1;
+            right: -18px;
+            bottom: 17%;
+            max-width: 248px;
+            @media #{$xl} {
+                max-width: 180px;
+            }
+            @media #{$lg} {
+                bottom: 10%;
+                max-width: 150px;
+            }
+            @media #{$xs} {
+                bottom: 2%;
+                max-width: 120px;
+            }
+        }
+    }
+}

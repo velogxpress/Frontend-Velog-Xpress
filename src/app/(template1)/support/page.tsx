@@ -1,0 +1,4 @@
+import PublicInfoPage from "@/components/public-info/PublicInfoPage";
+import Wrapper from "@/layouts/Wrapper";
+export const metadata = { title: "Support | Velog Xpress" };
+export default function SupportPage() { return <Wrapper><PublicInfoPage title="Support" subtitle="Besoin d’aide ?" intro="Notre équipe vous accompagne pour vos commandes, factures, livraisons et questions relatives à votre compte." sections={[{title:"Préparer votre demande",content:"Indiquez votre nom, votre numéro de téléphone et, si disponible, le numéro de commande, le tracking ou le code UPC concerné."},{title:"Compte et facturation",content:"Le support peut vous aider à accéder à votre compte, comprendre une facture ou signaler une information incorrecte."},{title:"Colis et livraison",content:"Pour faciliter les recherches, transmettez le numéro de suivi et une description précise du problème rencontré."}]} /></Wrapper>; }

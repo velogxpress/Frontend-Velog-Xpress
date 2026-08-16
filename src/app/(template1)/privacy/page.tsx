@@ -1,0 +1,4 @@
+import PublicInfoPage from "@/components/public-info/PublicInfoPage";
+import Wrapper from "@/layouts/Wrapper";
+export const metadata = { title: "Privacy | Velog Xpress" };
+export default function PrivacyPage() { return <Wrapper><PublicInfoPage title="Privacy" subtitle="Informations" intro="Velog Xpress protège les informations confiées lors de la création d’un compte, d’une commande ou du suivi d’un colis." sections={[{title:"Données utilisées",content:"Nous utilisons uniquement les informations nécessaires au transport, au suivi, à la facturation et au service client."},{title:"Protection et partage",content:"Les accès sont limités aux personnes autorisées. Les données ne sont partagées qu’avec les partenaires nécessaires à la livraison ou lorsque la loi l’exige."},{title:"Vos choix",content:"Vous pouvez demander l’accès, la correction ou la suppression de vos données en contactant notre équipe de support."}]} /></Wrapper>; }

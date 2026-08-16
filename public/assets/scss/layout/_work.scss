@@ -1,0 +1,152 @@
+@use '../utils' as *;
+
+/*=============================
+	02. Work
+===============================*/
+.work {
+    &__area {
+        &-two {
+            background: rgb(82, 174, 29);
+            padding: 130px 0 200px;
+            position: relative;
+            z-index: 1;
+        }
+    }
+    &__bg {
+        background-size: cover;
+        background-position: center;
+        padding: 140px 0 110px;
+        background-color: rgb(82, 174, 29);
+        @media #{$md} {
+            padding: 120px 90px;
+        }
+        @media #{$xs} {
+            padding: 100px 0 70px;
+        }
+    }
+    &__item {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 1;
+        &:hover {
+            & .work__icon {
+                & i {
+                    transform: rotateY(180deg);
+                }
+            }
+        }
+        &-wrap {
+            & .row {
+                & [class*="col-"] {
+                    &:last-child {
+                       & .work__shape {
+                            display: none;
+                       }
+                    }
+                }
+            }
+        }
+    }
+    &__icon {
+        width: 104px;
+        height: 104px;
+        @include flexbox();
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        background: var(--tg-color-white-default);
+        color: var(--tg-heading-color);
+        @include border-radius(50%);
+        position: relative;
+        font-size: 56px;
+        line-height: 0;
+        & i {
+            transform: rotateY(0);
+            @include transition(.3s);
+        }
+        & .number {
+            width: 30px;
+            height: 30px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            background: var(--tg-theme-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tg-color-white-default);
+            @include border-radius(50%);
+            line-height: 1;
+            position: absolute;
+            right: 3px;
+            top: 0;
+        }
+        &-two {
+            @include border-radius(20px);
+            & .number {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                top: -12px;
+            }
+        }
+        &-three {
+            background: rgb(82, 174, 29);
+            color: var(--tg-color-white-default);
+        }
+    }
+    &__content {
+        & .title {
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: var(--tg-color-white-default);
+        }
+        & p {
+            margin-bottom: 0;
+            color: #93A7FF;
+            font-size: 17px;
+            line-height: 1.5;
+        }
+        &-two {
+            & p {
+                color: var(--tg-color-gray-9);
+            }
+        }
+        &-three {
+            & .title {
+                color: var(--tg-heading-color);
+            }
+            & p {
+                color: var(--tg-body-color);
+            }
+        }
+    }
+    &__shape {
+        position: absolute;
+        right: -60px;
+        top: 32px;
+        z-index: -1;
+        @media #{$lg} {
+            right: -52px;
+        }
+        @media #{$md} {
+            display: none;
+        }
+        & svg {
+            color: var(--tg-color-white-default);
+            @media #{$lg} {
+                width: 75px;
+            }
+        }
+        &-two {
+            & svg {
+                color: rgb(14, 34, 105);
+            }
+        }
+        &-three {
+            & svg {
+                color: var(--tg-color-gray-1);
+            }
+        }
+    }
+}

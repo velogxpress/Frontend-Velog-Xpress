@@ -1,0 +1,4 @@
+import PublicInfoPage from "@/components/public-info/PublicInfoPage";
+import Wrapper from "@/layouts/Wrapper";
+export const metadata = { title: "Close account | Velog Xpress" };
+export default function CloseAccountPage() { return <Wrapper><PublicInfoPage title="Close account" subtitle="Votre compte" intro="Vous pouvez demander la fermeture de votre compte Velog Xpress à tout moment." sections={[{title:"Envoyer la demande",content:"Contactez le support avec le nom, le téléphone et l’adresse e-mail associés au compte. Ne communiquez jamais votre mot de passe."},{title:"Vérification",content:"Notre équipe vérifiera votre identité avant toute fermeture afin de protéger votre compte contre les demandes non autorisées."},{title:"Données conservées",content:"Certaines informations liées aux paiements, expéditions ou obligations légales peuvent être conservées pendant la durée exigée par la réglementation."}]} /></Wrapper>; }

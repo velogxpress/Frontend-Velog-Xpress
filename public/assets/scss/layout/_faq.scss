@@ -1,0 +1,197 @@
+@use '../utils' as *;
+
+/*=============================
+    16. Faq
+===============================*/
+.faq {
+    &__area {
+        &-two {
+            background: rgb(82, 174, 29);
+            position: relative;
+            z-index: 1;
+        }
+    }
+    &__content {
+        @media #{$md} {
+            margin-bottom: 50px;
+        }
+    }
+    &__wrap {
+        &-two {
+            & .accordion {
+                &-item {
+                    margin-bottom: 8px;
+                    border: 1px solid #eee9e9;
+                    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+                    background: rgb(14, 34, 105);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                &-button {
+                    padding: 29px 90px 32px 42px;
+                    font-weight: 700;
+                    font-size: 24px;
+                    text-transform: capitalize;
+                    font-family: var(--tg-heading-font-family);
+                    background: var(--tg-color-white-default);
+                    border: none;
+                    color: var(--tg-color-black-5);
+                    @media #{$md} {
+                        padding: 29px 80px 32px 25px;
+                    }
+                    @media #{$xs} {
+                        font-size: 20px;
+                        padding: 29px 70px 32px 25px;
+                    }
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    &::after {
+                        display: none;
+                    }
+                    &::before {
+                        content: "\f109";
+                        width: 48px;
+                        height: 48px;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+                        background: rgb(82, 174, 29);
+                        color: var(--tg-color-white-default);
+                        background-image: none;
+                        font-family: "flaticon_tg_default";
+                        font-size: 18px;
+                        position: absolute;
+                        right: 28px;
+                        top: 19px;
+                        font-weight: 700;
+                        line-height: 1;
+                        @include border-radius(50%);
+                        @media #{$md} {
+                            right: 20px;
+                        }
+                        @media #{$xs} {
+                            width: 40px;
+                            height: 40px;
+                            font-size: 14px;
+                            top: 26px;
+                        }
+                        @media #{$sm} {
+                            top: 24px;
+                        }
+                    }
+                    &:not(.collapsed) {
+                        color: var(--tg-theme-primary);
+                        box-shadow: none;
+                        &::before {
+                            content: "\f10a";
+                        }
+                    }
+                }
+                &-body {
+                    padding: 0px 42px 40px;
+                    @media #{$md} {
+                        padding: 0px 25px 30px;
+                    }
+                    & p {
+                        margin-bottom: 0;
+                        font-weight: 400;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        &-three {
+            & .accordion {
+                &-item {
+                    margin-bottom: 10px;
+                    border: none;
+                    box-shadow: none;
+                    background: transparent;
+                    border-radius: 0;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+                &-button {
+                    padding: 0 0 0 20px;
+                    font-weight: 700;
+                    font-size: 22px;
+                    text-transform: capitalize;
+                    font-family: var(--tg-heading-font-family);
+                    background: rgba(255, 255, 255, 0.10);
+                    border: 1px solid var(--tg-border-9);
+                    color: var(--tg-color-white-default);
+                    @include border-radius(6px);
+                    @include flexbox();
+                    align-items: center;
+                    overflow: hidden;
+                    @media #{$xs} {
+                        font-size: 20px;
+                    }
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    &::after {
+                        content: "\f131";
+                        font-family: "flaticon";
+                        width: 55px;
+                        height: 100%;
+                        background-image: none;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 60px;
+                        color: var(--tg-color-white-default);
+                        line-height: 0;
+                    }
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        right: 55px;
+                        top: 0;
+                        width: 1px;
+                        height: 100%;
+                        background: var(--tg-border-9);
+                        z-index: 1;
+                        @include transition(.3s);
+                    }
+                    &:not(.collapsed) {
+                        color: var(--tg-heading-color);
+                        box-shadow: none;
+                        background: var(--tg-color-white-default);
+                        border-color: var(--tg-color-white-default);
+                        &::after {
+                            transform: rotate(-90deg);
+                            color: rgb(14, 34, 105);
+                        }
+                        &::before {
+                            background: #D6D6D6;
+                        }
+                    }
+                }
+                &-body {
+                    padding: 14px 18px 12px 20px;
+                    & p {
+                        color: var(--tg-color-gray-9);
+                        margin-bottom: 0;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+    &__shape {
+        & img {
+            position: absolute;
+            right: 40px;
+            top: 85px;
+            z-index: -1;
+        }
+    }
+}
+
+
