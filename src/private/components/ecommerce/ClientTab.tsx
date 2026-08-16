@@ -316,7 +316,7 @@ useEffect(() => {
           </div>
           <div className="flex h-[260px] w-full items-center justify-center overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 p-3 dark:border-white/[0.06] dark:bg-white/[0.03] sm:h-[340px]">
                 {selectedDetail?.picture ? (
-                    <img src={`${Lien.REST_API_IMAGE_URL}/${selectedDetail?.picture}`} alt={`${selectedDetail?.picture}`} className="h-full w-full object-contain" />
+                    <img src={Lien.resolveFileUrl(selectedDetail?.picture)} alt={`${selectedDetail?.picture}`} className="h-full w-full object-contain" />
                   ) : (
                     
                       <img src="/images/user/colis.png" alt="Default Colis Image" className="h-full w-full object-contain" />

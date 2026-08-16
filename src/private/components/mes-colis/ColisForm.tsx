@@ -1039,7 +1039,7 @@ export default function ColisForm() {
             <div className="flex flex-col items-center justify-center gap-5 sm:flex-row">
                 {selectedDetail?.picture ? (
                     <img
-                      src={`${Lien.REST_API_IMAGE_URL}/${selectedDetail?.picture}`}
+                      src={Lien.resolveFileUrl(selectedDetail?.picture)}
                       alt={`${selectedDetail?.picture}`}
                       className="max-h-[360px] w-full rounded-2xl object-contain"
                     />
@@ -1066,14 +1066,14 @@ export default function ColisForm() {
                 {galleryPhotos.map((photo) => (
                   <a
                     key={photo.id}
-                    href={`${Lien.REST_API_IMAGE_URL}/${photo.photo}`}
+                    href={Lien.resolveFileUrl(photo.photo)}
                     target="_blank"
                     rel="noreferrer"
                     title="Ouvrir cette photo de la galerie"
                     className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm dark:border-white/[0.05] dark:bg-gray-900"
                   >
                     <img
-                      src={`${Lien.REST_API_IMAGE_URL}/${photo.photo}`}
+                      src={Lien.resolveFileUrl(photo.photo)}
                       alt={`Photo galerie ${photo.id}`}
                       className="h-48 w-full object-cover"
                     />

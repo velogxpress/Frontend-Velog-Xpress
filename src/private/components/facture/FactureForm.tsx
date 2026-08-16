@@ -784,7 +784,7 @@ async function handleNotifierWhatsapp(): Promise<void> {
        const response = await whatsappFacture(selectedFactures?.code ?? "");
          // console.log("Response from whatsappFacture API:", response.data);
           const pdfFileName = `${selectedFactures?.code ?? ""}.pdf`;
-          const pdfUrl = `${Lien.REST_API_IMAGE_URL}/${encodeURIComponent(pdfFileName)}`;
+          const pdfUrl = Lien.resolveFileUrl(encodeURIComponent(pdfFileName));
           
           const invoiceTotal = (selectedFactures?.amount ?? 0) - (selectedFactures?.discount ?? 0);
           const invoiceChange = Math.max((selectedFactures?.effectif ?? 0) - invoiceTotal, 0);

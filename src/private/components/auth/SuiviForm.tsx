@@ -264,7 +264,7 @@ export default function SuiviForm() {
     : 0;
   const statusLabel = orderDetails?.status || "En attente de recherche";
   const imageSrc = orderDetails?.picture
-    ? `${Lien.REST_API_IMAGE_URL}/${orderDetails.picture}`
+    ? Lien.resolveFileUrl(orderDetails.picture)
     : "/images/user/colis.png";
 
   const quickStats = [

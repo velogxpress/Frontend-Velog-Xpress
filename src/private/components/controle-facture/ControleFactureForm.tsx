@@ -472,7 +472,7 @@ export default function ControleFactureForm() {
           await whatsappFacture(selectedFactures?.code ?? "");
       
           const pdfFileName = `${selectedFactures?.code ?? ""}.pdf`;
-          const pdfUrl = `${Lien.REST_API_IMAGE_URL}/${encodeURIComponent(pdfFileName)}`;
+          const pdfUrl = Lien.resolveFileUrl(encodeURIComponent(pdfFileName));
           const netAmount =
             (selectedFactures?.amount ?? 0) - (selectedFactures?.discount ?? 0);
           
