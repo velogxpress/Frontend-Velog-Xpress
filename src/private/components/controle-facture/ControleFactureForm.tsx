@@ -469,10 +469,12 @@ export default function ControleFactureForm() {
     }
 
      try {
-          await whatsappFacture(selectedFactures?.code ?? "");
-      
-          const pdfFileName = `${selectedFactures?.code ?? ""}.pdf`;
-          const pdfUrl = Lien.resolveFileUrl(encodeURIComponent(pdfFileName));
+          // whatsappFacture() generates the invoice PDF, uploads it to the
+          // bucket, and returns its real, complete URL as the response body
+          // (see PdfServiceImpl.movefactureDownloadA4 on the backend) — use
+          // that directly instead of guessing a filename/path client-side.
+          const response = await whatsappFacture(selectedFactures?.code ?? "");
+          const pdfUrl = Lien.resolveFileUrl(response?.data);
           const netAmount =
             (selectedFactures?.amount ?? 0) - (selectedFactures?.discount ?? 0);
           

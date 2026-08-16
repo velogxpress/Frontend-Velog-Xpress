@@ -769,9 +769,12 @@ async function handlePrintFacture(selectedFacture: Facture) {
     }
 
      try {
+       // whatsappFacture() generates the invoice PDF, uploads it to the
+       // bucket, and returns its real, complete URL as the response body
+       // (see PdfServiceImpl.movefactureDownloadA4 on the backend) — use
+       // that directly instead of guessing a filename/path client-side.
        const response = await whatsappFacture(selectedFactures?.code ?? "");
-          console.log("Response from whatsappFacture API:", response.data);
-          const pdfUrl = Lien.resolveFileUrl(`${selectedFactures?.code}.pdf`);
+          const pdfUrl = Lien.resolveFileUrl(response?.data);
           
           const message = `Bonjour ${selectedFactures?.client},\nNous vous informons que votre facture ${selectedFactures?.code} d’un montant de ${selectedFactures?.amount.toFixed(2)} USD est prête. Merci de votre confiance et de votre fidélité.\n\nVous pouvez consulter et télécharger votre facture ici:\n ${pdfUrl}`;
           const encodedMessage = encodeURIComponent(message);
