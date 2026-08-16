@@ -31,7 +31,7 @@ import { useState, useEffect, useRef } from "react";
 import {
   listCategoriesForSelect,getCategorieByPart
 } from "../../../services/CategorieService";
-import { checkPrintAgentStatus } from "../../../services/printAgentService";
+import { checkPrintAgentStatus } from "../../../services/PrintAgentService";
 import { createOrder, getlistOrders,deleteOrder,updateOrder} from "../../../services/OrderService";
 import { getOrderDetails, getsOrderDetails, createOrderDetails, searchOrderDetails, printColisLabel, deleteOrderDetails, updateOrderDetails, transferOrderDetails } from "../../../services/OrderDetailsService"
 import { getlistVilles } from "@/services/VilleService"; 

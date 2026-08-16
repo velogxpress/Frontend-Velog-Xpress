@@ -4,7 +4,7 @@ import Select from "../form/Select";
 import { getlistOrders } from "@/services/OrderService";
 import Button from "../ui/button/Button";
 import { CalendarDays, DownloadIcon, FileBarChart, PackageCheck, PrinterIcon } from "lucide-react";
-import { checkPrintAgentStatus } from "../../../services/printAgentService";
+import { checkPrintAgentStatus } from "../../../services/PrintAgentService";
 import { printRapportGeneral } from "@/services/OrderService";
 import { toast } from 'react-toastify';
 

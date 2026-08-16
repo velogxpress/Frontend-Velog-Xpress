@@ -20,7 +20,7 @@ import Label from "../form/Label";
 import Select from "../form/Select";
 import Checkbox from "../form/input/Checkbox";
 
-import { checkPrintAgentStatus } from "../../../services/printAgentService";
+import { checkPrintAgentStatus } from "../../../services/PrintAgentService";
 import { listClients,rechercherClients } from "@/services/RegisterService";
 import { listOrderDetailsEtendu, searchlistOrderDetailsEtendu } from "../../../services/OrderDetailsService";
 import { getlistOrders} from "../../../services/OrderService";

@@ -25,7 +25,7 @@ import { Modal } from "../ui/modal";
 import { createFacture,getFacture,whatsappFacture} from "../../../services/FactureService";
 import { getAgentSurcursal } from "../../../services/AgentsurcursalService";
 import { createQuickFactureDetails } from "../../../services/FactureDetailsService";
-import { checkPrintAgentStatus } from "../../../services/printAgentService";
+import { checkPrintAgentStatus } from "../../../services/PrintAgentService";
 import { getClient } from "@/services/RegisterService";
 import { ArrowLeftRight, Banknote, CalendarDays, CheckLineIcon, CircleDollarSign, FactoryIcon, Mail, MessageCircle, Package, PencilIcon, Phone, PrinterIcon, ReceiptText, ShieldCheck, Tag, User2Icon, WalletCards } from "lucide-react";
 import { toast } from "react-toastify";

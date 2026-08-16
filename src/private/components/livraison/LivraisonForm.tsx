@@ -26,7 +26,7 @@ import { Modal } from "../ui/modal";
 import Avatar from "../ui/avatar/Avatar";
 import { createFacture,getFacture,whatsappFacture} from "../../../services/FactureService";
 import { createFactureDetails,getFactureDetails } from "../../../services/FactureDetailsService";
-import { checkPrintAgentStatus } from "../../../services/printAgentService";
+import { checkPrintAgentStatus } from "../../../services/PrintAgentService";
 import { getClient } from "@/services/RegisterService";
 import { jwtDecode } from "jwt-decode";
 import { PrinterIcon, MessageCircle, User2Icon, FactoryIcon, LocateIcon, Store, Truck, PackageCheck, MapPin, CircleDollarSign, ShieldCheck, WalletCards, ReceiptText } from "lucide-react";

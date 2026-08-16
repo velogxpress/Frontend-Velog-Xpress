@@ -16,7 +16,7 @@ import { getFactureDetails } from "@/services/FactureDetailsService";
 import { listFactures,searchFacture,printFactureA4,getFacture,whatsappFacture } from "@/services/FactureService";
 import { SearchIcon} from "../../icons";
 import { EyeIcon, PrinterIcon, DownloadIcon, MessageCircle, User2Icon, FactoryIcon, ReceiptText, Phone, Package, CircleDollarSign, ShieldCheck, WalletCards } from "lucide-react";
-import { checkPrintAgentStatus } from "../../../services/printAgentService";
+import { checkPrintAgentStatus } from "../../../services/PrintAgentService";
 import { getTaux } from "@/services/TauxService";
 import Avatar from "../ui/avatar/Avatar";
 import AvatarText from "../ui/avatar/AvatarText";
