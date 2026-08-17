@@ -14,7 +14,7 @@ import {
   SearchIcon,
   DownloadIcon
 } from "../../icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { myOrderDetailsDashboard,myOrderDetailsList,searchmyOrderDetails,downloadFacture} from "../../../services/OrderDetailsService"
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
@@ -439,16 +439,29 @@ export default function ColisForm() {
   const [selectedDetail, setSelectedDetail] = useState<OrderDetails | null>(null);
   const [galleryPhotos, setGalleryPhotos] = useState<OrderDetailsPhoto[]>([]);
   
+  // 🔐 BUG FIX: rapid page clicks (or any timing where an older request
+  // happens to resolve after a newer one) used to let a stale response
+  // overwrite the screen with the wrong page's data — since nothing tracked
+  // which request was actually the latest. That's why it looked
+  // inconsistent ("sometimes it works, sometimes it doesn't") rather than
+  // reliably broken: it depended entirely on network timing. A request
+  // sequence counter discards any response that isn't from the most
+  // recently fired request.
+  const fetchRequestId = useRef(0);
+
   const fetchDetails = async (code: string) => {
+    const requestId = ++fetchRequestId.current;
     try {
       const response =
         recherche.trim() === ""
           ? await myOrderDetailsList(code, page)
           : await searchmyOrderDetails(code, recherche, page);
+      if (requestId !== fetchRequestId.current) return; // a newer request has since fired — ignore this stale response
       const data: PageResponse<OrderDetails> = response.data;
       setDetails(data.content);
       setTotalPages(data.totalPages);
     } catch (error) {
+      if (requestId !== fetchRequestId.current) return;
       console.error("Error fetching order details:", error);
     }
   };
