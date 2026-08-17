@@ -449,6 +449,17 @@ export default function ColisForm() {
   // recently fired request.
   const fetchRequestId = useRef(0);
 
+  // 🔐 BUG FIX: on a failed request (e.g. the backend 500s for a specific
+  // page), this used to just console.error and leave `details`/`totalPages`
+  // untouched — so the screen kept showing whichever page last loaded
+  // successfully, with no indication anything had gone wrong. That's what
+  // made the pagination look broken in a very specific, confusing way:
+  // Suivant/Précédent past a page that errors would appear to "do nothing"
+  // (page number changes, cards don't), because the fetch really did fail
+  // silently. Now a failed page shows an explicit error state instead of
+  // frozen stale data, with a retry button that just re-runs fetchDetails.
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
   const fetchDetails = async (code: string) => {
     const requestId = ++fetchRequestId.current;
     try {
@@ -460,9 +471,13 @@ export default function ColisForm() {
       const data: PageResponse<OrderDetails> = response.data;
       setDetails(data.content);
       setTotalPages(data.totalPages);
+      setFetchError(null);
     } catch (error) {
       if (requestId !== fetchRequestId.current) return;
       console.error("Error fetching order details:", error);
+      setFetchError(
+        "Impossible de charger cette page. Veuillez réessayer."
+      );
     }
   };
 
@@ -831,6 +846,16 @@ export default function ColisForm() {
           </div>
         </div>
       </div>
+      {fetchError ? (
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-error-200 bg-error-50 p-6 text-center dark:border-error-500/20 dark:bg-error-500/10">
+          <p className="text-sm font-medium text-error-600 dark:text-error-400">
+            {fetchError}
+          </p>
+          <Button size="sm" onClick={() => fetchDetails(code)}>
+            Réessayer
+          </Button>
+        </div>
+      ) : (
       <div
         className={
           viewMode === "grid"
@@ -1024,13 +1049,14 @@ export default function ColisForm() {
         {details.length === 0 && (
           <div
             className={`rounded-lg border border-dashed border-gray-300 bg-white p-8 text-center text-sm text-gray-500 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-gray-400 ${
-              viewMode === "grid" ? "sm:col-span-2 xl:col-span-4" : ""
+              viewMode === "grid" ? "sm:col-span-2 xl:col-span-3" : ""
             }`}
           >
             Aucun colis trouve.
           </div>
         )}
       </div>
+      )}
           <Modal
         isOpen={isOpen} onClose={closeModal}
         className="max-w-[900px] m-4"
