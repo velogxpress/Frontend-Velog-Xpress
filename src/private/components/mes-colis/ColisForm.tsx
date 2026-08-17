@@ -834,7 +834,7 @@ export default function ColisForm() {
       <div
         className={
           viewMode === "grid"
-            ? "grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
+            ? "grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
             : "flex flex-col gap-3"
         }
       >
@@ -954,7 +954,7 @@ export default function ColisForm() {
                   <Stepper step={getStepIndex(detail.status)} />
                 </div>
 
-                <div className="mt-4 grid grid-cols-1 gap-2.5">
+                <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2.5">
                   <InfoField
                     icon={ClipboardList}
                     label="Code commande"
