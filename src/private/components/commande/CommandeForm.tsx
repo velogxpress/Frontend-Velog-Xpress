@@ -1624,11 +1624,10 @@ const handleSelectedcategoryChange = (value: string | number) => {
       return;
     }
 
-    const publicUploadsBaseUrl = "https://www.velogxpress.com/api/uploads/products";
     const photoUrls: string[] = [];
 
     if (detail.picture) {
-      photoUrls.push(`${publicUploadsBaseUrl}/${detail.picture}`);
+      photoUrls.push(Lien.resolveFileUrl(detail.picture));
     }
 
     try {
@@ -1636,7 +1635,7 @@ const handleSelectedcategoryChange = (value: string | number) => {
       const galleryPhotoUrls = (response.data ?? [])
         .map((photo: OrderDetailsPhoto) => photo.photo)
         .filter(Boolean)
-        .map((photo: string) => `${publicUploadsBaseUrl}/${photo}`);
+        .map((photo: string) => Lien.resolveFileUrl(photo));
 
       galleryPhotoUrls.forEach((photoUrl: string) => {
         if (!photoUrls.includes(photoUrl)) {
@@ -1652,9 +1651,7 @@ const handleSelectedcategoryChange = (value: string | number) => {
     );
     const commandeCode = (detail.ship.shiporder || detail.upc || "").trim();
     const tempFactureFileName = `${clientFileName}_${commandeCode}.pdf`;
-    const tempFactureUrl = `${publicUploadsBaseUrl}/${encodeURIComponent(
-      tempFactureFileName
-    )}`;
+    const tempFactureUrl = Lien.resolveFileUrl(encodeURIComponent(tempFactureFileName));
 
     const messageLines = [
       `Bonjour ${detail.rec_name},`,
