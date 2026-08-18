@@ -4,6 +4,7 @@ import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
+import { SkeletonStatCards, SkeletonChart } from "../ui/skeleton/Skeleton";
 import { BarChart3, CircleDollarSign, PackageCheck, ReceiptText } from "lucide-react";
 import { getDashboardOrders } from "@/services/OrderService";
 import { listOrderDetailsDashboard } from "@/services/OrderDetailsService";
@@ -341,7 +342,18 @@ export default function AdminDashboardInsights() {
     { name: "Montant", data: recentOrdersRevenue.map((item) => Number(item.value.toFixed(2))) },
   ];
 
-  return (
+  return loading ? (
+    <div className="space-y-6">
+      <SkeletonStatCards count={4} />
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
+        <SkeletonChart className="h-[320px] w-full xl:col-span-8" />
+        <SkeletonChart className="h-[320px] w-full xl:col-span-4" />
+        <SkeletonChart className="h-[320px] w-full xl:col-span-8" />
+        <SkeletonChart className="h-[300px] w-full xl:col-span-4" />
+        <SkeletonChart className="h-[320px] w-full xl:col-span-12" />
+      </div>
+    </div>
+  ) : (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard

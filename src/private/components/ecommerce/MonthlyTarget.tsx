@@ -1,5 +1,6 @@
 "use client";
 import { useState,useEffect } from "react";
+import { SkeletonChart } from "../ui/skeleton/Skeleton";
 import { getTotalFactures } from "../../../services/OrderDetailsService";
 import { getFactureToday } from "@/services/FactureService";
 import { getTaux } from "@/services/TauxService";
@@ -140,6 +141,7 @@ export default function MonthlyTarget() {
   const [data, setData] = useState<OrderDetails>({} as OrderDetails);
   const [currentFacture, setCurrentFacture] = useState<Facture>({} as Facture);
   const [taux, setTaux] = useState<Taux>({} as Taux);
+  const [isLoading, setIsLoading] = useState(true);
   
     const fetchData = async () => {
       try {
@@ -170,9 +172,7 @@ export default function MonthlyTarget() {
   
   
     useEffect(() => {
-      fetchData();
-      fetchFactureToday();
-      fetchTaux();
+      Promise.all([fetchData(), fetchFactureToday(), fetchTaux()]).finally(() => setIsLoading(false));
       const interval = setInterval(() => {
         fetchData();
         fetchFactureToday();
@@ -204,6 +204,9 @@ export default function MonthlyTarget() {
             </p>
           </div>
         </div>
+        {isLoading ? (
+          <SkeletonChart className="h-[220px] w-full rounded-2xl" />
+        ) : (
         <div className="mt-6 flex flex-1 flex-col justify-center rounded-2xl bg-gray-50 p-5 dark:bg-white/[0.03]">
           <div className="flex items-end justify-between gap-4">
             <div>
@@ -242,8 +245,12 @@ export default function MonthlyTarget() {
         <p className="mx-auto mt-4 w-full max-w-[380px] text-center text-sm text-gray-500 sm:text-base">
           Vous avez gagné {(currentFacture.amount|| 0).toFixed(2)}$ aujourd’hui. Continuez votre excellent travail !  
         </p>
+      )}
       </div>
 
+      {isLoading ? (
+        <SkeletonChart className="h-[90px] w-full" />
+      ) : (
       <div className="flex items-center justify-center gap-5 px-6 py-3.5 sm:gap-8">
         <div>
           <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">
@@ -318,6 +325,7 @@ export default function MonthlyTarget() {
           </p>
         </div>
       </div>
+      )}
     </div>
   );
 }

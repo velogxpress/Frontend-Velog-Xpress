@@ -5,6 +5,7 @@ import { ArrowUpIcon, BoxIconLine, GroupIcon } from "@/private/icons";
 
 import { countOrders, countOrdersNow } from "@/services/OrderService";
 import { useState, useEffect } from "react";
+import { SkeletonStatCards } from "../ui/skeleton/Skeleton";
 import { countClient } from "@/services/LoginService";
 
 
@@ -13,9 +14,11 @@ export const EcommerceMetrics = () => {
   const [orders, setOrders] = useState(0);
   const [ordersNow, setOrdersNow] = useState(0);
   const [clients, setClients] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadMetrics = async () => {
+      setIsLoading(true);
       try {
         const [ordersResponse, ordersNowResponse, clientsResponse] = await Promise.all([
           countOrders(),
@@ -28,6 +31,8 @@ export const EcommerceMetrics = () => {
         setClients(Number(clientsResponse.data) || 0);
       } catch (error) {
         console.error("Erreur lors du chargement des indicateurs:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -35,7 +40,9 @@ export const EcommerceMetrics = () => {
   }, []);
 
 
-  return (
+  return isLoading ? (
+    <SkeletonStatCards count={2} />
+  ) : (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
       {/* <!-- Metric Item Start --> */}
       <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white via-white to-blue-50 p-5 shadow-theme-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg dark:border-gray-800 dark:from-white/[0.04] dark:via-white/[0.02] dark:to-blue-500/[0.08] md:p-6">

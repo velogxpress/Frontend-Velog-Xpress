@@ -2,6 +2,7 @@
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 import { useState,useEffect,useMemo } from "react";
+import { SkeletonChart } from "../ui/skeleton/Skeleton";
 import { countClientCity } from "@/services/RegisterService";
 
 
@@ -37,6 +38,7 @@ const numberFormatter = new Intl.NumberFormat("fr-FR");
 export default function MonthlySalesChart() {
 
   const [data, setData] = useState<Client[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -48,7 +50,7 @@ export default function MonthlySalesChart() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData().finally(() => setIsLoading(false));
     const interval = setInterval(() => {
       fetchData();
     }, 5000); // ⏱️ 5 secondes
@@ -203,6 +205,9 @@ export default function MonthlySalesChart() {
         </span>
       </div>
 
+      {isLoading ? (
+        <SkeletonChart className="h-[250px] w-full" />
+      ) : (
       <div className="max-w-full overflow-x-auto custom-scrollbar">
         <div className="min-w-[650px] xl:min-w-full">
           <ReactApexChart
@@ -213,6 +218,7 @@ export default function MonthlySalesChart() {
           />
         </div>
       </div>
+      )}
     </div>
   );
 }
