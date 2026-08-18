@@ -12,6 +12,7 @@ import Input from "../form/input/InputField";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import { useState, useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { getFactureDetails } from "@/services/FactureDetailsService";
 import { listFactures,searchFacture,printFactureA4,getFacture,whatsappFacture } from "@/services/FactureService";
 import { SearchIcon} from "../../icons";
@@ -275,6 +276,7 @@ export default function ControleFactureForm() {
   const { isOpen, openModal, closeModal } = useModal();
   const { isOpen:isSendOpen, openModal:openSendModal, closeModal:closeSendModal } = useModal();
   const [factures, setFactures] = useState<Facture[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -300,12 +302,15 @@ export default function ControleFactureForm() {
   }, []);
 
   const fetchFactures = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await listFactures(pageNumber);
       setFactures(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des agents surcursals:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -542,6 +547,9 @@ export default function ControleFactureForm() {
           </div>
         </div>
       </div>
+      {isLoading ? (
+        <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {factures.map((facture) => (
           <div
@@ -656,6 +664,7 @@ export default function ControleFactureForm() {
           </div>
         )}
       </div>
+      )}
     
       <Modal isOpen={isOpen} onClose={closeModal} className="m-4 max-w-[960px]">
         <div className="no-scrollbar relative max-h-[90vh] w-full overflow-y-auto rounded-3xl bg-white shadow-2xl dark:bg-gray-900">
