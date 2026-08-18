@@ -13,6 +13,11 @@ import { Modal } from "../ui/modal";
 import {
   SearchIcon
 } from "../../icons";
+import {
+  SkeletonStatCards,
+  SkeletonChart,
+  SkeletonCardGrid,
+} from "../ui/skeleton/Skeleton";
 import { useState, useEffect, useRef } from "react";
 import { myOrderDetailsDashboard,myOrderDetailsList,searchmyOrderDetails,downloadFacture} from "../../../services/OrderDetailsService"
 import { ApexOptions } from "apexcharts";
@@ -488,9 +493,12 @@ export default function ColisForm() {
   // silently. Now a failed page shows an explicit error state instead of
   // frozen stale data, with a retry button that just re-runs fetchDetails.
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isDashboardLoading, setIsDashboardLoading] = useState(true);
 
   const fetchDetails = async (code: string) => {
     const requestId = ++fetchRequestId.current;
+    setIsLoading(true);
     try {
       const response =
         recherche.trim() === ""
@@ -507,6 +515,8 @@ export default function ColisForm() {
       setFetchError(
         "Impossible de charger cette page. Veuillez réessayer."
       );
+    } finally {
+      if (requestId === fetchRequestId.current) setIsLoading(false);
     }
   };
 
@@ -523,6 +533,8 @@ export default function ColisForm() {
       setDashboardDetails(data.content ?? []);
     } catch (error) {
       console.error("Error fetching dashboard order details:", error);
+    } finally {
+      setIsDashboardLoading(false);
     }
   };
 
@@ -650,6 +662,15 @@ export default function ColisForm() {
 
   return (
     <>
+      {isDashboardLoading ? (
+        <>
+          <SkeletonStatCards count={4} />
+          <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            <SkeletonChart className="h-[320px] w-full lg:col-span-2" />
+            <SkeletonChart className="h-[320px] w-full" />
+          </div>
+        </>
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-theme-sm transition hover:shadow-theme-md dark:border-white/[0.05] dark:bg-white/[0.03]">
           <div className="flex items-center gap-4">
@@ -802,6 +823,7 @@ export default function ColisForm() {
           </div>
         </div>
       </div>
+      )}
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
@@ -859,6 +881,15 @@ export default function ColisForm() {
             Réessayer
           </Button>
         </div>
+      ) : isLoading ? (
+        <SkeletonCardGrid
+          count={6}
+          className={
+            viewMode === "grid"
+              ? "grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
+              : "flex flex-col gap-3"
+          }
+        />
       ) : (
       <div
         className={
