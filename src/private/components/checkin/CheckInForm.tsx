@@ -15,6 +15,7 @@ import {
   SearchIcon,
 } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import { toast} from "react-toastify";
 
 import { getlistOrders} from "../../../services/OrderService";
@@ -191,6 +192,7 @@ export default function ReceptionForm() {
 
   const [orders,setOrders]=useState<Order[]>([]);
   const [details,setDetails]=useState<OrderDetails[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [shiporders,setShiporders]=useState<string | null>(null);
   const [qtycolis,setQtycolis]=useState<number | null>(0);
   const [qtypound,setQtypound]=useState<number | null>(0);
@@ -245,11 +247,14 @@ const fetchOrderSelected = async (orderId: number,pageNumber: number) => {
 
 
 const fetchOrderDetails = async (shiporder: string,cityID:Number) => {
+  setIsLoading(true);
   try {
     const response = await surcursalOrderDetails(shiporder,cityID);
     setDetails(response.data);
   } catch (error) {
     console.error("Échec du chargement des détails de la commande:", error);
+  } finally {
+    setIsLoading(false);
   }
 };
   
@@ -651,7 +656,9 @@ function handleSelectVilleChange(value: number | string): void {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {details.map((detail) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={9} />
+                ) : details.map((detail) => (
                   <TableRow key={detail.id} className={rowBadge(detail.status)}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       <Button
