@@ -11,6 +11,7 @@ import Input from "../form/input/InputField";
 import Select from "../form/Select";
 import {SearchIcon,} from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import { getlistOrders} from "../../../services/OrderService";
 import { listStorageDetails,getStorageDetails,findStorageDetails } from "../../../services/StorageDetailsService";
 import Label from "../form/Label";
@@ -137,6 +138,7 @@ export default function PackingForm() {
   const [recherche, setRecherche] = useState("");
 
   const [details, setDetails] = useState<StorageDetails[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedDetail, setSelectedDetail] = useState<StorageDetails[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderSelected, setOrderSelected] = useState<Order | null>(null);  
@@ -191,11 +193,14 @@ export default function PackingForm() {
   
 
   const fetchStorage=async(order:string)=>{
+    setIsLoading(true);
     try {
       const response = await listStorageDetails(order);
       setDetails(response.data);
     } catch (error) {
       console.error("Error fetching storage details:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -385,7 +390,9 @@ export default function PackingForm() {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {details.map((detail) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={8} />
+                ) : details.map((detail) => (
                   <TableRow key={detail?.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       {detail?.storage?.container?detail.storage.container:"N/A"}
