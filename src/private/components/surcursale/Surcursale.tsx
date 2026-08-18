@@ -16,6 +16,7 @@ import { Modal } from "../ui/modal";
 import Avatar from "../ui/avatar/Avatar";
 import { PencilIcon, TrashBinIcon,PlusIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import { createSurcursal,getlistSurcursals,getSurcursal,updateSurcursal,deleteSurcursal} from "../../../services/SurcursalService";
 import { getlistVilles } from "../../../services/VilleService";
 
@@ -58,6 +59,7 @@ export default function Surcursale() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [surcursales, setSurcursales] = useState<Surcursal[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -82,12 +84,15 @@ export default function Surcursale() {
   }>({});
 
   const fetchSurcursales = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await getlistSurcursals(pageNumber);
         setSurcursales(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des catégories:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -405,7 +410,9 @@ export default function Surcursale() {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {surcursales.map((surcursale) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={5} />
+                ) : surcursales.map((surcursale) => (
                   <TableRow key={surcursale.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       {surcursale.name}
