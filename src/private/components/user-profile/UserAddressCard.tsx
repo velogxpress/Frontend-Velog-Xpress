@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
+import { SkeletonLine } from "../ui/skeleton/Skeleton";
 import { getAddress } from "@/services/AddressService";
 import { MapPin, PackageCheck } from "lucide-react";
 
@@ -15,14 +16,18 @@ interface Address {
 
 export default function UserAddressCard() {
   const [address, setAddress] = useState<Address | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
     let value = 1;
     
     const fetchAddress = async () => {
+        setIsLoading(true);
         try {
           const response = await getAddress(value);
           setAddress(response.data as Address);
         } catch (error) {
           console.error("Error fetching address:", error);
+        } finally {
+          setIsLoading(false);
         }
       };
   
@@ -38,6 +43,16 @@ export default function UserAddressCard() {
       <div className="p-5 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
         <div>
+          {isLoading ? (
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-white/[0.03]">
+                  <SkeletonLine className="h-3 w-16" />
+                  <SkeletonLine className="mt-2 h-4 w-24" />
+                </div>
+              ))}
+            </div>
+          ) : (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl border border-gray-100 bg-gray-50 p-4 dark:border-gray-800 dark:bg-white/[0.03] sm:col-span-2">
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
@@ -74,7 +89,8 @@ export default function UserAddressCard() {
                 {address?.zipcode || "N/A"}
               </p>
             </div>
-          </div><div className="mt-4 flex items-start gap-3 rounded-xl bg-brand-50 p-4 dark:bg-brand-500/10"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" /><p className="text-sm leading-6 text-gray-600 dark:text-gray-300">Vérifiez que votre <strong>code client</strong> apparaît dans les informations de votre commande en ligne. C’est ce code qui aide l’équipe à associer le colis à votre compte.</p></div>
+          </div>
+          )}<div className="mt-4 flex items-start gap-3 rounded-xl bg-brand-50 p-4 dark:bg-brand-500/10"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" /><p className="text-sm leading-6 text-gray-600 dark:text-gray-300">Vérifiez que votre <strong>code client</strong> apparaît dans les informations de votre commande en ligne. C’est ce code qui aide l’équipe à associer le colis à votre compte.</p></div>
         </div>
       </div>
       </div>
