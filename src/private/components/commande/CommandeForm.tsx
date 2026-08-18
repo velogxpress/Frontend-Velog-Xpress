@@ -28,6 +28,7 @@ import {
 
 } from "../../icons";
 import { useState, useEffect, useRef } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import {
   listCategoriesForSelect,getCategorieByPart
 } from "../../../services/CategorieService";
@@ -535,6 +536,7 @@ export default function CommandeForm() {
 
   const [orders, setOrders] = useState<Order[]>([]);
   const [details, setDetails] = useState<OrderDetails[]>([]);
+  const [isDetailsLoading, setIsDetailsLoading] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
   const [orderID, setOrderID] = useState<number | null>(null);
   const [shiporders, setShiporders] = useState<string | null>(null);
@@ -810,6 +812,7 @@ export default function CommandeForm() {
 
 
   const fetchOrderDetails = async (shiporder: string, pageNumber = page) => {
+    setIsDetailsLoading(true);
     try {
       const searchTerm = recherche.trim();
       const response =
@@ -824,6 +827,8 @@ export default function CommandeForm() {
       setTotalPages(response.data?.totalPages ?? 0);
     } catch (error) {
       console.error("Échec du chargement des détails de la commande:", error);
+    } finally {
+      setIsDetailsLoading(false);
     }
   };
   
@@ -2301,6 +2306,12 @@ const handleSelectedcategoryChange = (value: string | number) => {
           </div>
         </div>
       </div>
+      {isDetailsLoading ? (
+        <SkeletonCardGrid
+          count={6}
+          className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
+        />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {details.map((detail) => (
           <div
@@ -2460,6 +2471,7 @@ const handleSelectedcategoryChange = (value: string | number) => {
           </div>
         )}
       </div>
+      )}
       <Modal
         isOpen={isOpen} onClose={closeModal}
         className="max-w-[450px] m-4"
