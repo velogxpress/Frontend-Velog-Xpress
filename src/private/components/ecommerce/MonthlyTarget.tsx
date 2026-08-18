@@ -207,6 +207,7 @@ export default function MonthlyTarget() {
         {isLoading ? (
           <SkeletonChart className="h-[220px] w-full rounded-2xl" />
         ) : (
+          <>
         <div className="mt-6 flex flex-1 flex-col justify-center rounded-2xl bg-gray-50 p-5 dark:bg-white/[0.03]">
           <div className="flex items-end justify-between gap-4">
             <div>
@@ -245,6 +246,7 @@ export default function MonthlyTarget() {
         <p className="mx-auto mt-4 w-full max-w-[380px] text-center text-sm text-gray-500 sm:text-base">
           Vous avez gagné {(currentFacture.amount|| 0).toFixed(2)}$ aujourd’hui. Continuez votre excellent travail !  
         </p>
+          </>
       )}
       </div>
 

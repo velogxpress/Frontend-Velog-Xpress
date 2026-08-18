@@ -671,6 +671,7 @@ export default function ColisForm() {
           </div>
         </>
       ) : (
+        <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-theme-sm transition hover:shadow-theme-md dark:border-white/[0.05] dark:bg-white/[0.03]">
           <div className="flex items-center gap-4">
@@ -823,6 +824,7 @@ export default function ColisForm() {
           </div>
         </div>
       </div>
+        </>
       )}
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
