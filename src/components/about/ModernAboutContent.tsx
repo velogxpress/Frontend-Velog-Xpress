@@ -1,0 +1,19 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, BadgeCheck, Eye, HeartHandshake, Route, ShieldCheck, Target } from "lucide-react";
+
+export default function ModernAboutContent() {
+  return (
+    <>
+      <section className="vx-section">
+        <div className="vx-container vx-about-grid">
+          <div className="vx-about-collage"><div><Image src="/assets/img/images/inner_about_img01.jpg" alt="Équipe logistique Velog Xpress" fill sizes="(max-width:900px) 100vw, 45vw" /></div><Image src="/assets/img/images/inner_about_img02.jpg" alt="Traitement de colis Velog Xpress" width={310} height={390} /></div>
+          <div><p className="vx-eyebrow">Notre histoire</p><h2>Plus qu’un transporteur, un partenaire de confiance.</h2><p className="vx-body-lede">Velog Xpress rapproche les familles, les entrepreneurs et leurs achats grâce à une logistique simple entre les États-Unis et Haïti.</p><p>Notre entreprise est née d’une conviction : le client ne devrait jamais avoir à deviner où se trouve son colis. Nous coordonnons réception, transport, facturation et livraison avec une information claire à chaque changement de responsabilité.</p><div className="vx-feature-list"><div><span><Route /></span><div><h3>Un corridor maîtrisé</h3><p>Des processus adaptés aux réalités du transport entre Miami et nos destinations en Haïti.</p></div></div><div><span><HeartHandshake /></span><div><h3>Une relation durable</h3><p>Une équipe disponible pour accompagner chaque client au-delà de la simple livraison.</p></div></div></div></div>
+        </div>
+      </section>
+      <section className="vx-section vx-section-soft"><div className="vx-container"><div className="vx-section-head"><div><p className="vx-eyebrow">Notre direction</p><h2>Une ambition claire, des engagements concrets.</h2></div><p>Chaque décision produit doit rendre le transport plus compréhensible, plus fiable et plus humain.</p></div><div className="vx-about-values"><article><span><Target /></span><h3>Notre mission</h3><p>Rendre le transport international accessible, prévisible et humain pour les particuliers comme pour les entreprises.</p></article><article><span><Eye /></span><h3>Notre vision</h3><p>Devenir la référence de confiance du commerce et de la logistique sur le corridor Haïti–États-Unis.</p></article><article><span><BadgeCheck /></span><h3>Notre promesse</h3><p>Donner une information utile au bon moment et prendre soin de chaque colis comme d’un engagement.</p></article></div></div></section>
+      <section className="vx-section vx-section-navy"><div className="vx-container"><div className="vx-section-head"><div><p className="vx-eyebrow">Nos principes</p><h2>Ce qui guide chaque livraison.</h2></div></div><div className="vx-workflow vx-workflow-three"><article className="vx-workflow-step"><span><ShieldCheck /></span><h3>Rigueur</h3><p>Des contrôles précis à chaque changement de responsabilité.</p></article><article className="vx-workflow-step"><span><BadgeCheck /></span><h3>Transparence</h3><p>Des statuts compréhensibles et des coûts expliqués avant la remise.</p></article><article className="vx-workflow-step"><span><HeartHandshake /></span><h3>Proximité</h3><p>Une équipe qui connaît les réalités de ses clients et de leurs destinations.</p></article></div></div></section>
+      <section className="vx-section vx-cta-section"><div className="vx-container"><div className="vx-cta"><div><p className="vx-eyebrow">Construisons la suite</p><h2>Confiez-nous votre prochain envoi.</h2><p>Créez votre compte ou échangez avec notre équipe.</p></div><div className="vx-cta-actions"><Link className="vx-button" href="/dashboard/signup">Créer un compte <ArrowRight /></Link><Link className="vx-button vx-button-light" href="/contact">Nous contacter</Link></div></div></div></section>
+    </>
+  );
+}

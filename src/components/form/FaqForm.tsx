@@ -2,7 +2,6 @@ import InjectableSvg from "@/components/common/InjectableSvg"
 import { useEffect, useState } from "react";
 import { listCities} from "@/services/VilleService";
 import { getPrice} from "@/services/CalculatriceService";
-import { get } from "http";
 
 interface Ville {
   id: number;
@@ -22,21 +21,34 @@ interface Region {
 const FaqForm = () => {
 
      const[villes,setVilles]=useState<Ville[]>([]);
-     const [selectedVille, setSelectedVille] = useState<string>('');
      const [selectedVilleId, setSelectedVilleId] = useState<number | null>(null);
      const [selectedCategory, setSelectedCategory] = useState<string>('');
      const [show,setShow]=useState<boolean>(false);
      const [msg,setMsg]=useState<string>("");
      const [price, setPrice] = useState<number>(0);
      const [poids, setPoids] = useState<number>(0);
+     const [isLoadingVilles, setIsLoadingVilles] = useState<boolean>(true);
+     const [villeLoadError, setVilleLoadError] = useState<boolean>(false);
 
 const fetchVilles = async () => {
      try {
        const response = await listCities(0);
-       
-       setVilles(response.data.content);
+
+       const responseData = response?.data;
+       const cityList = Array.isArray(responseData?.content)
+         ? responseData.content
+         : Array.isArray(responseData)
+           ? responseData
+           : [];
+
+       setVilles(cityList);
+       setVilleLoadError(false);
      } catch (error) {
+       setVilles([]);
+       setVilleLoadError(true);
        console.error("Erreur lors de la récupération des villes:", error);
+     } finally {
+       setIsLoadingVilles(false);
      }
    };
    
@@ -59,8 +71,7 @@ const handleSelectCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
 }
 
   function handleCalculator(selectedVilleId: number | null, poids: number): void {
-    // Determine ville id (fall back to selectedVille string if needed)
-    const villeId = selectedVilleId ?? (selectedVille ? Number(selectedVille) : null);
+    const villeId = selectedVilleId;
 
     if (!villeId || isNaN(villeId)) {
       alert("Veuillez sélectionner une destination.");
@@ -95,8 +106,17 @@ const handleSelectCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
             className="orderby"
             value={selectedVilleId !== null ? String(selectedVilleId) : ''}
             onChange={(e) => setSelectedVilleId(e.target.value ? Number(e.target.value) : null)}
+            disabled={isLoadingVilles || villeLoadError}
           >
-            <option value="">Sélectionnez une Destination</option>
+            <option value="">
+              {isLoadingVilles
+                ? "Chargement des destinations..."
+                : villeLoadError
+                  ? "Destinations temporairement indisponibles"
+                  : villes.length === 0
+                    ? "Aucune destination disponible"
+                    : "Sélectionnez une Destination"}
+            </option>
 
             {villes.map((ville) => (
               <option key={ville.id} value={String(ville.id)}>

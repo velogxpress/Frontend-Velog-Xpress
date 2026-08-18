@@ -8,7 +8,7 @@ const Confidentialite = () => {
     <div className="theme-red">
       <HeaderThree />
       <ScrollToTop />
-      <main className="fix">
+      <main className="vx-site">
         <Breadcumb
           sub_title="Politique"
           title="Confidentialité"

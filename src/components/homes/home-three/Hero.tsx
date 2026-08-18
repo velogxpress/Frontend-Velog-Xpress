@@ -1,105 +1,55 @@
-import Image from "next/image"
-import InjectableSvg from "@/components/common/InjectableSvg"
+"use client";
 
-import banner_img from "@/assets/img/banner/h3_hero_img01.png"
-import banner_img2 from "@/assets/img/banner/h3_hero_img02.png"
-import banner_img3 from "@/assets/img/banner/h3_hero_img03.png"
-import banner_shape1 from "@/assets/img/banner/h3_hero_shape01.png"
-import banner_shape2 from "@/assets/img/banner/h3_hero_shape02.png"
-import banner_shape3 from "@/assets/img/banner/h3_hero_shape03.png"
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Check, CircleCheck, PackageCheck, Search } from "lucide-react";
+import { FormEvent, useState } from "react";
 
 const Hero = () => {
+   const [tracking, setTracking] = useState("");
+
+   const handleTracking = (event: FormEvent<HTMLFormElement>) => {
+     event.preventDefault();
+     const query = tracking.trim() ? `?tracking=${encodeURIComponent(tracking.trim())}` : "";
+     window.location.href = `/dashboard/suivi${query}`;
+   };
+
    return (
-     <section
-       className="banner__area-two fix banner__bg-two"
-       style={{ backgroundImage: `url(/assets/img/banner/h3_hero_bg.jpg)` }}
-     >
-       <div className="container">
-         <div className="row gutter-20 justify-content-center">
-           <div className="col-lg-6">
-             <div className="banner__content-two">
-               <h3 className="title" data-aos="fade-up" data-aos-delay="200">
-                 {/* Air<Image src={banner_title} alt="" />  Logistics & Cargo */}
-                 Air Cargo Shipping Pour Haiti
-               </h3>
-                <div
-                 className="banner__btn "
-                 data-aos="fade-up"
-                 data-aos-delay="600"
-               >
-                 <a href="/dashboard/suivi" className="btn  border-btn m-2">
-                   SUIVRE MON COLIS{" "}
-                   <InjectableSvg
-                     src="/assets/img/icon/right_arrow.svg"
-                     alt=""
-                     className="injectable"
-                   />
-                 </a>
-               </div>
-               <p data-aos="fade-up" data-aos-delay="400">
-                 Velog Xpress, est une entreprise spécialisée dans le transport
-                 de marchandises par voie aérienne, et maritime offrant des
-                 solutions de fret rapide, fiable et sécurisée.
-               </p>
-               <div
-                 className="banner__btn "
-                 data-aos="fade-up"
-                 data-aos-delay="600"
-               >
-                 <a href="/dashboard/signup" className="btn  border-btn m-2">
-                   CREER UN COMPTE{" "}
-                   <InjectableSvg
-                     src="/assets/img/icon/right_arrow.svg"
-                     alt=""
-                     className="injectable"
-                   />
-                 </a>
-                 <a href="/dashboard/signin" className="btn border-btn m-2">
-                   SE CONNECTER{" "}
-                   <InjectableSvg
-                     src="/assets/img/icon/right_arrow.svg"
-                     alt=""
-                     className="injectable"
-                   />
-                 </a>
-               </div>
+     <>
+       <section className="vx-hero">
+         <div className="vx-container vx-hero-grid">
+           <div className="vx-hero-copy">
+             <p className="vx-eyebrow">Logistique États-Unis ↔ Haïti</p>
+             <h1>Vos colis avancent. Vous le <span>savez toujours.</span></h1>
+             <p className="vx-lede">Transport aérien et maritime avec un suivi clair, des délais prévisibles et une équipe disponible du dépôt jusqu’à la livraison.</p>
+             <div className="vx-hero-actions">
+               <Link href="/dashboard/suivi" className="vx-button vx-button-green">Suivre mon colis <ArrowRight size={18} /></Link>
+               <Link href="/dashboard/signup" className="vx-button vx-button-ghost">Créer un compte</Link>
              </div>
+             <div className="vx-hero-notes"><span><Check /> Suivi en temps réel</span><span><Check /> Tarifs transparents</span><span><Check /> Support bilingue</span></div>
            </div>
-           <div className="col-lg-6 col-md-10">
-             <div className="banner__img-two">
-               <Image
-                 src={banner_img}
-                 alt="img"
-                 className="main-img hero-container-move"
-                 data-aos="fade-up"
-                 data-aos-delay="600"
-               />
-               <div className="shape">
-                 <Image src={banner_shape1} alt="shape" className="hero-box-drop hero-box-drop-one" />
-                 <Image src={banner_shape2} alt="shape" className="hero-box-drop hero-box-drop-two" />
-                 <Image src={banner_shape3} alt="shape" className="hero-box-drop hero-box-drop-three" />
-               </div>
+           <div className="vx-hero-visual">
+             <div className="vx-hero-stage">
+               <div className="vx-route-line" />
+               <Image src="/assets/img/banner/h3_hero_img01.png" alt="Transport aérien Velog Xpress" width={771} height={238} priority />
              </div>
+             <div className="vx-status-card vx-status-top"><CircleCheck /><div><strong>Colis pris en charge</strong><span>Miami · Aujourd’hui, 10:42</span></div></div>
+             <div className="vx-status-card vx-status-bottom"><div className="vx-status-label"><i /> En transit</div><span>Livraison estimée</span><strong>Jeudi 20 août</strong><div className="vx-mini-progress"><i /></div></div>
            </div>
          </div>
+       </section>
+       <div className="vx-container vx-quick-track-wrap">
+         <div className="vx-quick-track">
+           <div className="vx-quick-title"><PackageCheck /><div><strong>Où est votre colis ?</strong><span>Entrez un numéro de tracking ou UPC.</span></div></div>
+           <form onSubmit={handleTracking} className="vx-track-form">
+             <Search size={19} aria-hidden="true" />
+             <input value={tracking} onChange={(event) => setTracking(event.target.value)} aria-label="Numéro de suivi" placeholder="Ex. VX-2408-98172" />
+             <button className="vx-button" type="submit">Rechercher</button>
+           </form>
+           <Link href="/support">Aide au suivi <ArrowRight size={15} /></Link>
+         </div>
        </div>
-       <div className="banner__shape-wrap-two">
-         <Image
-           src={banner_img2}
-           alt="img"
-           className="hero-plane-fly"
-           data-aos="fade-up"
-           data-aos-delay="1000"
-         />
-         <Image
-           src={banner_img3}
-           alt="img"
-           className="hero-cargo-drift"
-           data-aos="fade-left"
-           data-aos-delay="800"
-         />
-       </div>
-     </section>
+     </>
    );
 }
 

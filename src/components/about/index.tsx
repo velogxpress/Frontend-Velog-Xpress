@@ -1,8 +1,6 @@
 import FooterThree from "@/layouts/footers/FooterThree"
 import Breadcumb from "../common/Breadcumb"
-import AboutArea from "./AboutArea"
-import FeaturesArea from "./FeaturesArea"
-import VideoArea from "./VideoArea"
+import ModernAboutContent from "./ModernAboutContent"
 import HeaderThree from "@/layouts/headers/HeaderThree"
 import ScrollToTop from "../common/ScrollToTop"
 
@@ -11,11 +9,9 @@ const About = () => {
      <div className="theme-red">
        <HeaderThree />
        <ScrollToTop />
-       <main className="fix">
+       <main className="vx-site">
          <Breadcumb sub_title="Qui Sommes-nous?" title="Qui Sommes-nous?" />
-         <AboutArea />
-         <FeaturesArea />
-         <VideoArea />
+         <ModernAboutContent />
          <FooterThree />
        </main>
      </div>

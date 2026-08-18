@@ -70,11 +70,11 @@ if (typeof window !== "undefined") {
   const mainContentMargin = isMobileOpen
     ? "ml-0"
     : isExpanded || isHovered
-    ? "lg:ml-[290px]"
-    : "lg:ml-[90px]";
+    ? "lg:ml-[268px]"
+    : "lg:ml-[82px]";
 
   return (
-    <div className="min-h-screen xl:flex admin-scope">
+    <div className="min-h-screen xl:flex admin-scope vx-admin-shell">
       <AppSidebar />
       <Backdrop />
 
@@ -82,7 +82,7 @@ if (typeof window !== "undefined") {
         className={`flex-1 transition-all duration-300 ease-in-out ${mainContentMargin}`}
       >
         <AppHeader />
-        <div className="p-4 mx-auto md:p-6">{children}</div>
+        <div className="vx-admin-content p-4 mx-auto md:p-6">{children}</div>
         <ToastContainer
           position="top-center"
           autoClose={3000}

@@ -1,0 +1,34 @@
+VELOG XPRESS — UX / UI PROPOSAL
+==============================
+
+DESIGN DIRECTION
+- Keep the official logo palette: navy #1C2F73 and green #53AC1C.
+- Use navy for trust, structure and primary navigation.
+- Use green for progress, success and the strongest calls to action.
+- Replace heavy decorative styling with clear hierarchy, generous spacing,
+  restrained shadows and consistent 10–24px corner radii.
+
+PUBLIC EXPERIENCE
+- Lead with the client’s main question: “Where is my package?”
+- Present Track, Create account and Estimate as the primary actions.
+- Explain the complete shipping journey in four simple steps.
+- Make services, prohibited goods, policies and support easy to scan.
+
+PORTAL EXPERIENCE
+- Organize navigation around roles and operational workflows.
+- Give each screen a consistent page heading, search/filter area, primary
+  action and responsive content pattern.
+- Use guided step flows for scanning, check-in, packing, invoicing and delivery.
+- Replace dense mobile tables with responsive parcel cards.
+- Keep the next action visible and use written status labels in addition to color.
+
+ACCESSIBILITY AND RESPONSIVENESS
+- Visible keyboard focus, explicit labels and readable color contrast.
+- Touch targets sized for mobile use in warehouse and delivery contexts.
+- Responsive public navigation, sidebar, cards, forms, tables and chat.
+- Optional dark mode in the authenticated portal.
+
+PROTOTYPE NOTES
+- All data is demonstrative and all actions remain local.
+- The prototype is intentionally framework-free: HTML, CSS and JavaScript only.
+- Existing application files and APIs are not changed or called.

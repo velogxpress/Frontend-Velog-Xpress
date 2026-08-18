@@ -8,7 +8,7 @@ const Condition = () => {
     <div className="theme-red">
       <HeaderThree />
       <ScrollToTop />
-      <main className="fix">
+      <main className="vx-site">
         <Breadcumb
           sub_title="Marchandises Dangereuses et interdites"
           title="Marchandises"

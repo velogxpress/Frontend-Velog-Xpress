@@ -1,5 +1,6 @@
 import "aos/dist/aos.css";
 import "@/styles/template2.scss";
+import "@/styles/modern-dashboard.scss";
 
 import DashboardAuthGate from "./DashboardAuthGate";
 

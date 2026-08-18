@@ -8,6 +8,7 @@ import CommandeTab from "@/private/components/ecommerce/CommandeTab";
 import FactureTab from "@/private/components/ecommerce/FactureTab";
 import RapportTab from "@/private/components/ecommerce/RapportTab";
 import AdminDashboardInsights from "@/private/components/ecommerce/AdminDashboardInsights";
+import DashboardWelcome from "@/private/components/ecommerce/DashboardWelcome";
 
 export const metadata: Metadata = {
   title: "Velog Xpress - Transport & Logistics",
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
 
 export default function Ecommerce() {
   return (
-    <div className="grid grid-cols-12 gap-4 md:gap-6">
+    <>
+      <DashboardWelcome />
+      <div className="grid grid-cols-12 gap-4 md:gap-6">
       
       <div className="col-span-12 space-y-6 xl:col-span-7">
         <EcommerceMetrics />
@@ -47,6 +50,7 @@ export default function Ecommerce() {
       <div className="col-span-12">
         <RapportTab />
       </div>
-    </div>
+      </div>
+    </>
   );
 }

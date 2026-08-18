@@ -1,72 +1,55 @@
 "use client";
 import Link from "next/link";
-import NavMenu from "./menu/NavMenu";
 import Image from "next/image";
-import UseSticky from "@/hooks/UseSticky";
 import { useState } from "react";
-import MobileSidebar from "./menu/MobileSidebar";
-import InjectableSvg from "@/components/common/InjectableSvg";
+import { ChevronDown, Menu, PackageSearch, UserRound, X } from "lucide-react";
 
 const HeaderThree = () => {
-  const { sticky } = UseSticky();
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   return (
-    <header className="transparent-header">
-      <div
-        id="sticky-header"
-        className={`tg-header__area tg-header__area-four ${
-          sticky ? "tg-sticky-menu sticky-menu sticky-menu__show" : ""
-        }`}
-      >
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="tgmenu__wrap">
-                <div className="logo">
-                  <Link href="/">
-                    <Image
-                      src="/assets/img/logo/VELOG-01.svg"
-                      alt="Logo"
-                      width={160}
-                      height={60}
-                    />
-                  </Link>
-                </div>
-
-                <div className="tgmenu__navbar-wrap tgmenu__main-menu d-none d-xl-flex">
-                  <NavMenu />
-                </div>
-
-                <div className="tgmenu__action tgmenu__action-four d-none d-md-flex">
-                  <ul className="list-wrap">
-                    <li className="header-btn">
-                      <a href="/dashboard/signin" className="btn btn-three">
-                        <InjectableSvg
-                          src="/assets/img/icon/right_arrow.svg"
-                          alt=""
-                          className="injectable"
-                        />
-                        SE CONNECTER
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div
-                  onClick={() => setIsActive(true)}
-                  className="mobile-nav-toggler mobile-nav-toggler-two"
-                >
-                  <i className="tg-flaticon-menu-1"></i>
-                </div>
-              </div>
-            </div>
-          </div>
+    <>
+      <div className="vx-utility-bar">
+        <div className="vx-container vx-utility-inner">
+          <span><i /> Miami → Haïti · Départs chaque semaine</span>
+          <span>Lun–Sam, 9:00–17:00 · +1 (973) 640-6064</span>
         </div>
       </div>
+      <header className="vx-header">
+        <div className="vx-container vx-nav-inner">
+          <Link href="/" className="vx-brand" aria-label="Velog Xpress, accueil">
+            <Image src="/assets/img/logo/VELOG-01.svg" alt="Velog Xpress" width={144} height={60} priority />
+          </Link>
 
-      <MobileSidebar isActive={isActive} setIsActive={setIsActive} />
-    </header>
+          <nav className={`vx-main-nav ${isMenuOpen ? "is-open" : ""}`} aria-label="Navigation principale">
+            <Link href="/">Accueil</Link>
+            <Link href="/about">Qui sommes-nous</Link>
+            <Link href="/support">Support</Link>
+            <Link href="/contact">Contact</Link>
+            <div className={`vx-nav-dropdown ${isInfoOpen ? "is-open" : ""}`}>
+              <button type="button" onClick={() => setIsInfoOpen((value) => !value)} aria-expanded={isInfoOpen}>
+                Informations <ChevronDown size={15} aria-hidden="true" />
+              </button>
+              <div className="vx-nav-dropdown-panel">
+                <Link href="/confidentialite">Politique de confidentialité</Link>
+                <Link href="/condition">Termes et conditions</Link>
+                <Link href="/marchandise">Marchandises réglementées</Link>
+                <Link href="/close-account">Fermer mon compte</Link>
+              </div>
+            </div>
+          </nav>
+
+          <div className="vx-nav-actions">
+            <Link href="/dashboard/signin" className="vx-button vx-button-ghost"><UserRound size={17} />Se connecter</Link>
+            <Link href="/dashboard/suivi" className="vx-button"><PackageSearch size={17} />Suivre un colis</Link>
+          </div>
+          <button className="vx-menu-button" type="button" onClick={() => setIsMenuOpen((value) => !value)} aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={isMenuOpen}>
+            {isMenuOpen ? <X size={21} /> : <Menu size={21} />}
+          </button>
+        </div>
+      </header>
+    </>
   );
 };
 

@@ -303,7 +303,7 @@ export default function SuiviForm() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-white">
+    <main className="dashboard-scope vx-public-tracking min-h-screen bg-slate-50 text-slate-900 dark:bg-gray-950 dark:text-white">
       <section className="relative overflow-hidden bg-[#001B90] px-4 py-8 text-white sm:px-6 lg:px-10">
         <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-green-400/20 blur-3xl" />
         <div className="absolute bottom-0 left-1/2 h-48 w-48 rounded-full bg-cyan-300/20 blur-3xl" />

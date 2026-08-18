@@ -9,7 +9,7 @@ const Contact = () => {
      <div className="theme-red">
        <ScrollToTop />
        <HeaderThree />
-       <main className="fix">
+       <main className="vx-site">
          <Breadcumb title="Contactez-nous" sub_title="Contact" />
          <ContactArea />
        </main>

@@ -10,7 +10,7 @@ export default function PublicInfoPage({ title, subtitle, intro, sections }: { t
     <div className="theme-red">
       <HeaderThree />
       <ScrollToTop />
-      <main className="fix">
+      <main className="vx-site">
         <Breadcumb sub_title={subtitle} title={title} />
         <section className="blog-details-area legal-page section-py-120">
           <div className="container"><div className="row justify-content-center"><div className="col-xl-9 col-lg-10">

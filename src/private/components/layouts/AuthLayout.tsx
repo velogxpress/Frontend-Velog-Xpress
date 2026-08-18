@@ -1,50 +1,24 @@
 "use client";
-import "aos/dist/aos.css";
 
-import GridShape from "@/private/components/common/GridShape";
-//import ThemeTogglerTwo from "@/private/components/common/ThemeTogglerTwo";
 import Image from "next/image";
 import Link from "next/link";
+import { Check, PackageCheck, ShieldCheck } from "lucide-react";
 import React from "react";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0 dashboard-scope">
-      <div className="relative flex lg:flex-row w-full h-screen justify-center flex-col dark:bg-gray-900 sm:p-0">
-        
-
-        {/* Colonne droite : visuel + logo */}
-        <div className="lg:w-1/2 w-full h-full lg:grid items-center hidden">
-          <div className="relative items-center justify-center flex z-1">
-            {/* Grid shape */}
-            <GridShape />
-            <div className="flex flex-col items-center max-w-xs">
-              <Link href="/" className="block mb-4">
-                <Image
-                  width={231}
-                  height={48}
-                  src="/images/logo/auth-logo.svg"
-                  alt="Logo"
-                />
-              </Link>
-              <p className="text-center text-gray-400 dark:text-white/60">
-                De loin, la meilleure Compagnie Haïtienne en matière de réception, gestion, traitement et Transport de courriers. 
-              </p>
-            </div>
-          </div>
+    <div className="dashboard-scope vx-auth-shell">
+      <aside className="vx-auth-aside">
+        <Link href="/" className="vx-auth-logo"><Image width={144} height={60} src="/assets/img/logo/VELOG-01.svg" alt="Velog Xpress" priority /></Link>
+        <div className="vx-auth-message">
+          <p>Votre logistique, en un seul endroit</p>
+          <h1>Gérez vos envois avec confiance.</h1>
+          <span>Suivi, factures, adresse américaine et assistance réunis dans une expérience simple et sécurisée.</span>
+          <div className="vx-auth-features"><div><PackageCheck /> Suivi accessible 24/7</div><div><ShieldCheck /> Données et accès protégés</div></div>
         </div>
-        {/* Colonne gauche : formulaire */}
-        {children}
-
-        {/* Bouton theme en bas à droite */}
-        {/* <div className="fixed bottom-6 right-6 z-50 hidden sm:block">
-          <ThemeTogglerTwo />
-        </div> */}
-      </div>
+        <div className="vx-auth-proof"><span><Check /> Support humain</span><span><Check /> Informations transparentes</span></div>
+      </aside>
+      <main className="vx-auth-main">{children}</main>
     </div>
   );
 }

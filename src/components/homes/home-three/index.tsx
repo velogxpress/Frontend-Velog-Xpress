@@ -1,12 +1,6 @@
 import HeaderThree from "@/layouts/headers/HeaderThree"
 import Hero from "./Hero"
-import Features from "./Features"
-import About from "./About"
-import Brand from "../home-three/Brand";
-import Services from "./Services"
-import Faq from "./Faq"
-import SupportClient from "./SupportClient"
-import ClientInfoHub from "./ClientInfoHub"
+import ModernHomeSections from "./ModernHomeSections"
 import FooterThree from "@/layouts/footers/FooterThree"
 import ScrollToTop from "@/components/common/ScrollToTop"
 
@@ -15,15 +9,9 @@ const HomeThree = () => {
      <div className="theme-orange">
        <ScrollToTop />
        <HeaderThree />
-       <main className="fix">
+       <main className="vx-site">
          <Hero />
-         <About />
-         <Services />
-         <Features />
-         <ClientInfoHub />
-         <Brand style={true} />
-         <Faq />
-         <SupportClient />
+         <ModernHomeSections />
        </main>
        <FooterThree />
      </div>
