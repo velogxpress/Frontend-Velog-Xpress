@@ -11,8 +11,7 @@ import Input from "../form/input/InputField";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import {
-  SearchIcon,
-  DownloadIcon
+  SearchIcon
 } from "../../icons";
 import { useState, useEffect, useRef } from "react";
 import { myOrderDetailsDashboard,myOrderDetailsList,searchmyOrderDetails,downloadFacture} from "../../../services/OrderDetailsService"
@@ -33,6 +32,7 @@ import {
   ClipboardList,
   LayoutGrid,
   List as ListIcon,
+  Download as DownloadIcon,
 } from "lucide-react";
 import Lien from "@/route/BASE_URL";
 import { jwtDecode } from "jwt-decode";
@@ -941,7 +941,7 @@ export default function ColisForm() {
                   </Button>
                   <Button
                     size="sm"
-                    className="p-2"
+                    className="p-2!"
                     title="Telecharger la facture du colis"
                     onClick={() => handleDownload(detail)}
                   >
@@ -1034,7 +1034,7 @@ export default function ColisForm() {
                   </Button>
                   <Button
                     size="sm"
-                    className="flex-1 justify-center p-2"
+                    className="flex-1 justify-center p-2!"
                     title="Telecharger la facture du colis"
                     onClick={() => handleDownload(detail)}
                   >
