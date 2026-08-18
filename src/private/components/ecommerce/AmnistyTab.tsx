@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { useState,useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { listAmnisty,searchmyAmnisty,updateAmnistyStatus,downloadAmnistyInvoice,printAmnistyLabel } from "@/services/AmnistyService";
 import Button from "../ui/button/Button";
 import { Boxes, DownloadIcon, FileImageIcon, ForwardIcon, MessageCircleIcon, PackageCheck, PencilIcon, PrinterIcon } from "lucide-react";
@@ -305,6 +306,7 @@ export default function AmnistyTab() {
 
   const {isOpen: isPriceOpen,openModal: openPriceModal,closeModal: closePriceModal,} = useModal();
   const [amnisties, setAmnisties] = useState<Amnisty[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedDetail, setSelectedDetail] = useState<Amnisty | null>(null);
   const [amnistyPage, setAmnistyPage] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -402,7 +404,7 @@ export default function AmnistyTab() {
 
  useEffect(() => {
   // appel initial
-  fectchAmnisty();
+  fectchAmnisty().finally(() => setIsLoading(false));
 
   // interval
   const interval = setInterval(() => {
@@ -1298,6 +1300,9 @@ const handlePrintLabel = async (
         </div>
       </div>
 
+      {isLoading ? (
+        <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {paginatedAmnisties.map((amnisty) => (
           <div
@@ -1419,6 +1424,7 @@ const handlePrintLabel = async (
           </div>
         )}
       </div>
+      )}
       </div>
        <Modal
         isOpen={isOpen} onClose={closeModal}

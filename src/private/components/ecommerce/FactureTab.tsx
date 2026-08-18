@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "../ui/table";
 import React, { useCallback, useMemo, useState ,useEffect} from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import Select from "../form/Select";
 import { listSurcursals } from "@/services/SurcursalService";
 import { getlistOrders } from "@/services/OrderService";
@@ -129,6 +130,7 @@ export default function FactureTab() {
   const [factures, setFactures] = useState<Facture[]>([]);
   const [page, setPage] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const fetchSurcursals = async () => {
       try {
@@ -185,6 +187,7 @@ function handleSelectOrderChange(value: number | string): void {
 }
   
 const fetchFactures = useCallback(async () => {
+    setIsLoading(true);
     try {
       let response;
       if (selectedSurcursalObj && selectedOrderObj) {
@@ -206,6 +209,8 @@ const fetchFactures = useCallback(async () => {
     } catch (e) {
       console.error(e);
       setFactures([]);
+    } finally {
+      setIsLoading(false);
     }
   }, [page, selectedOrderObj, selectedSurcursalObj]);
 
@@ -460,7 +465,9 @@ const fetchFactures = useCallback(async () => {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {factures.map((facture,index) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={9} />
+                ) : factures.map((facture,index) => (
                   <TableRow key={`${facture?.id}-${index}`}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       {facture?.ship?.shiporder?? "N/A"}

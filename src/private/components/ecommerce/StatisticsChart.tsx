@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 
 import Select from "../form/Select";
 import { useState, useEffect } from "react";
+import { SkeletonChart } from "../ui/skeleton/Skeleton";
 import { getlistOrders } from "../../../services/OrderService";
 import { colisvilleGraphe } from "../../../services/OrderDetailsService";
 import { amountvilleGraphe } from "../../../services/OrderDetailsService";
@@ -129,6 +130,7 @@ export default function StatisticsChart() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [data, setData] = useState<OrderDetails[]>([]);
   const [data2, setData2] = useState<OrderDetails[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = useCallback(async (orderID: number) => {
       try {
@@ -166,6 +168,8 @@ export default function StatisticsChart() {
     } catch (e) {
       console.error(e);
       setOrders([]);
+    } finally {
+      setIsLoading(false);
     }
   }, [fetchData, fetchData2]);
   
@@ -355,6 +359,9 @@ export default function StatisticsChart() {
         </div>
       </div>
 
+      {isLoading ? (
+        <SkeletonChart className="h-[310px] w-full" />
+      ) : (
       <div className="max-w-full overflow-x-auto custom-scrollbar">
         <div className="min-w-[1000px] xl:min-w-full">
           <ReactApexChart
@@ -365,6 +372,7 @@ export default function StatisticsChart() {
           />
         </div>
       </div>
+      )}
     </div>
   );
 }

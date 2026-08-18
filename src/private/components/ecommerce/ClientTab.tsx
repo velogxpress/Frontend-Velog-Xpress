@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { useState,useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import Button from "../ui/button/Button";
 import { DownloadIcon, Eye, Mail, MapPin, PackageSearch, Phone, Truck} from "lucide-react";
 import Input from "../form/input/InputField";
@@ -143,6 +144,7 @@ export default function ClientTab() {
   const [recherche, setRecherche] = useState("");
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
 const handleKeyUp = async () => {
   setPage(0);
@@ -150,6 +152,7 @@ const handleKeyUp = async () => {
   
 useEffect(() => {
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const value = recherche.trim();
 
@@ -168,6 +171,8 @@ useEffect(() => {
 
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -272,7 +277,9 @@ useEffect(() => {
             </button>
             </div>
         </div>
-        {orderdetails.length === 0 ? (
+        {isLoading ? (
+          <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 xl:grid-cols-2" />
+        ) : orderdetails.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-gray-300 px-5 py-16 text-center dark:border-gray-700">
             <PackageSearch className="mx-auto h-10 w-10 text-gray-300 dark:text-gray-600" />
             <p className="mt-3 font-medium text-gray-700 dark:text-gray-300">Aucun colis trouvé</p>

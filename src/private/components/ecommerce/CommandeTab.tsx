@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import React, { useCallback, useMemo } from "react";
 import Select from "../form/Select";
 import { useState, useEffect } from "react";
+import { SkeletonChart } from "../ui/skeleton/Skeleton";
 import { getlistOrders } from "../../../services/OrderService";
 import { amountvilleGraphe, colisvilleGraphe } from "../../../services/OrderDetailsService";
 
@@ -363,9 +364,7 @@ export default function CommandeTab() {
               </p>
             </div>
             {chartLoading ? (
-              <div className="flex min-h-[280px] items-center justify-center text-sm text-gray-500 dark:text-gray-400">
-                Chargement du graphique...
-              </div>
+              <SkeletonChart className="h-[280px] w-full" />
             ) : cityChartData.length > 0 ? (
               <div className="min-w-[760px] xl:min-w-full">
                 <ReactApexChart
