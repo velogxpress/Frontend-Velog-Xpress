@@ -212,6 +212,35 @@ const getStepIndex = (status: string): number => {
   return 1;
 };
 
+// Windowed page list for the bottom pagination bar: always shows first/last
+// page plus a couple pages around the current one, "..." for any gap in
+// between. Keeps the control usable even when totalPages is large (40+)
+// instead of rendering a button per page.
+const getPageNumbers = (current: number, total: number): (number | "...")[] => {
+  if (total <= 0) return [];
+  const delta = 1;
+  const pages: number[] = [];
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+      pages.push(i);
+    }
+  }
+  const withDots: (number | "...")[] = [];
+  let previous: number | undefined;
+  for (const i of pages) {
+    if (previous !== undefined) {
+      if (i - previous === 2) {
+        withDots.push(previous + 1);
+      } else if (i - previous > 2) {
+        withDots.push("...");
+      }
+    }
+    withDots.push(i);
+    previous = i;
+  }
+  return withDots;
+};
+
 // Text is byte-for-byte the same copy the client already sees — only the
 // chip styling changed (unified dot + pill using the accent tokens above).
 const StatusBadge = (status: string, region: string) => {
@@ -774,7 +803,7 @@ export default function ColisForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-3 justify-end">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <div className="relative m-2">
             <Input
@@ -792,32 +821,7 @@ export default function ColisForm() {
             </span>
           </div>
         </div>
-        <div>
-          <div className="flex items-center justify-between mt-4">
-            <button
-              disabled={page === 0}
-              title="Afficher la page precedente"
-              onClick={() => setPage((p) => p - 1)}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-40"
-            >
-              Précédent
-            </button>
-
-            <span>
-              Page {totalPages === 0 ? 0 : page + 1} / {totalPages}
-            </span>
-
-            <button
-              disabled={totalPages === 0 || page + 1 >= totalPages}
-              title="Afficher la page suivante"
-              onClick={() => setPage((p) => p + 1)}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-40"
-            >
-              Suivant
-            </button>
-          </div>
-        </div>
-        <div className="flex items-center justify-start mt-4 lg:justify-end">
+        <div className="flex items-center justify-start lg:justify-end">
           <div className="inline-flex items-center gap-1 rounded-xl border border-gray-200 bg-white p-1 dark:border-white/[0.05] dark:bg-white/[0.03]">
             <button
               type="button"
@@ -1057,6 +1061,60 @@ export default function ColisForm() {
         )}
       </div>
       )}
+
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-center">
+          <div className="inline-flex items-center gap-1 rounded-2xl border border-gray-200 bg-white p-1.5 shadow-theme-sm dark:border-white/[0.05] dark:bg-white/[0.03]">
+            <button
+              type="button"
+              disabled={page === 0}
+              title="Afficher la page precedente"
+              onClick={() => setPage((p) => p - 1)}
+              className="flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent dark:text-gray-300 dark:hover:bg-white/[0.05]"
+            >
+              <span aria-hidden="true">&larr;</span> Precedent
+            </button>
+
+            <div className="flex items-center gap-1">
+              {getPageNumbers(page + 1, totalPages).map((item, index) =>
+                item === "..." ? (
+                  <span
+                    key={`ellipsis-${index}`}
+                    className="px-1.5 text-sm text-gray-400 dark:text-gray-500"
+                  >
+                    &hellip;
+                  </span>
+                ) : (
+                  <button
+                    key={item}
+                    type="button"
+                    title={`Aller a la page ${item}`}
+                    onClick={() => setPage(item - 1)}
+                    className={`flex h-9 w-9 items-center justify-center rounded-xl text-sm font-semibold transition ${
+                      item === page + 1
+                        ? "bg-error-500 text-white"
+                        : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/[0.05]"
+                    }`}
+                  >
+                    {item}
+                  </button>
+                )
+              )}
+            </div>
+
+            <button
+              type="button"
+              disabled={totalPages === 0 || page + 1 >= totalPages}
+              title="Afficher la page suivante"
+              onClick={() => setPage((p) => p + 1)}
+              className="flex items-center gap-1 rounded-xl bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white/[0.08] dark:text-gray-300 dark:hover:bg-white/[0.12]"
+            >
+              Suivant <span aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+        </div>
+      )}
+
           <Modal
         isOpen={isOpen} onClose={closeModal}
         className="max-w-[900px] m-4"
