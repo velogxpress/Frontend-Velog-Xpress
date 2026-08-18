@@ -27,8 +27,36 @@ interface Region {
   description: string;
 }
 
- type Option = { label: string; value: string };
+type Option = { label: string; value: string };
 const PAGE_SIZE = 9;
+
+// Windowed page list for the bottom pagination bar: always shows first/last
+// page plus a couple pages around the current one, "..." for any gap in
+// between.
+const getPageNumbers = (current, total) => {
+  if (total <= 0) return [];
+  const delta = 1;
+  const pages = [];
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+      pages.push(i);
+    }
+  }
+  const withDots = [];
+  let previous;
+  for (const i of pages) {
+    if (previous !== undefined) {
+      if (i - previous === 2) {
+        withDots.push(previous + 1);
+      } else if (i - previous > 2) {
+        withDots.push("...");
+      }
+    }
+    withDots.push(i);
+    previous = i;
+  }
+  return withDots;
+};
 
 export default function VilleForm() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -275,7 +303,7 @@ const handleSelectChange = async (selectedOption: Option | null) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-3">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <div className="flex items-center m-2 gap-3 justify-end">
             <Button
@@ -306,31 +334,6 @@ const handleSelectChange = async (selectedOption: Option | null) => {
             <span className="absolute left-0 top-1/2 -translate-y-1/2 border-r border-gray-200 px-3.5 py-3 text-gray-500 dark:border-gray-800 dark:text-gray-400 ">
               <SearchIcon className="w-6 h-6 text-gray-500" />
             </span>
-          </div>
-        </div>
-        <div>
-          <div className="flex items-center justify-between mt-4">
-            <button
-              disabled={page === 0}
-              title="Afficher la page precedente"
-              onClick={() => setPage((p) => p - 1)}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-40"
-            >
-              Précédent
-            </button>
-
-            <span>
-              Page {totalPages === 0 ? 0 : page + 1} / {totalPages}
-            </span>
-
-            <button
-              disabled={totalPages === 0 || page + 1 >= totalPages}
-              title="Afficher la page suivante"
-              onClick={() => setPage((p) => p + 1)}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-40"
-            >
-              Suivant
-            </button>
           </div>
         </div>
       </div>
@@ -398,6 +401,59 @@ const handleSelectChange = async (selectedOption: Option | null) => {
           </div>
         )}
       </div>
+      )}
+
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-center">
+          <div className="inline-flex items-center gap-1 rounded-2xl border border-gray-200 bg-white p-1.5 shadow-theme-sm dark:border-white/[0.05] dark:bg-white/[0.03]">
+            <button
+              type="button"
+              disabled={page === 0}
+              title="Afficher la page precedente"
+              onClick={() => setPage((p) => p - 1)}
+              className="flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-300 disabled:hover:bg-transparent dark:text-gray-300 dark:hover:bg-white/[0.05]"
+            >
+              <span aria-hidden="true">&larr;</span> Precedent
+            </button>
+
+            <div className="flex items-center gap-1">
+              {getPageNumbers(page + 1, totalPages).map((item, index) =>
+                item === "..." ? (
+                  <span
+                    key={`ellipsis-${index}`}
+                    className="px-1.5 text-sm text-gray-400 dark:text-gray-500"
+                  >
+                    &hellip;
+                  </span>
+                ) : (
+                  <button
+                    key={item}
+                    type="button"
+                    title={`Aller a la page ${item}`}
+                    onClick={() => setPage(item - 1)}
+                    className={`flex h-9 w-9 items-center justify-center rounded-xl text-sm font-semibold transition ${
+                      item === page + 1
+                        ? "bg-error-500 text-white"
+                        : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/[0.05]"
+                    }`}
+                  >
+                    {item}
+                  </button>
+                )
+              )}
+            </div>
+
+            <button
+              type="button"
+              disabled={totalPages === 0 || page + 1 >= totalPages}
+              title="Afficher la page suivante"
+              onClick={() => setPage((p) => p + 1)}
+              className="flex items-center gap-1 rounded-xl bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white/[0.08] dark:text-gray-300 dark:hover:bg-white/[0.12]"
+            >
+              Suivant <span aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+        </div>
       )}
 
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
