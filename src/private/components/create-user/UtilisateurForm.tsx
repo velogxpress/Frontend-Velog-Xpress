@@ -16,6 +16,7 @@ import Avatar from "../ui/avatar/Avatar";
 import AvatarText from "../ui/avatar/AvatarText";
 import { EyeIcon, PencilIcon, SearchIcon, TrashBinIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { listClients,rechercherClients,updateUtilisateur,deleteClient} from "@/services/RegisterService";
 import { Check, Copy, KeyRound, Mail, PenBoxIcon, PlusSquareIcon, ShieldCheck, StopCircle, User2Icon, UserCog2Icon } from "lucide-react";
 import { toast } from "react-toastify";
@@ -138,6 +139,7 @@ export default function UtilisateurForm() {
   const { isOpen: isColisOpen, openModal: openColisModal, closeModal: closeColisModal } = useModal();
   const { isOpen: isRecoveryOpen, openModal: openRecoveryModal, closeModal: closeRecoveryModal } = useModal();
   const [utilisateurs, setUtilisateurs] = useState<Utilisateur[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -237,17 +239,20 @@ export default function UtilisateurForm() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (recherche.trim() === "") {
-        fetchUtilisateurs(page);
-        return;
-      }
-
+      setIsLoading(true);
       try {
+        if (recherche.trim() === "") {
+          await fetchUtilisateurs(page);
+          return;
+        }
+
         const response = await rechercherClients(recherche, page);
         setUtilisateurs(response.data.content);
         setTotalPages(response.data.totalPages);
       } catch (error) {
         console.error("Échec de la recherche des utilisateurs:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -649,6 +654,9 @@ const handleSaveCreate = async (e: React.FormEvent<HTMLFormElement>) => {
           </div>
         </div>
       </div>
+      {isLoading ? (
+        <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {utilisateurs.map((utilisateur) => (
           <div
@@ -758,6 +766,7 @@ const handleSaveCreate = async (e: React.FormEvent<HTMLFormElement>) => {
           </div>
         )}
       </div>
+      )}
 
       <Modal isOpen={isRecoveryOpen} onClose={closeRecoveryModal} className="max-w-[680px] m-4">
         <div className="no-scrollbar relative max-h-[90vh] w-full max-w-[680px] overflow-y-auto rounded-3xl border border-gray-200 bg-white shadow-2xl dark:border-white/[0.08] dark:bg-gray-900">

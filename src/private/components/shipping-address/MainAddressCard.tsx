@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
+import { SkeletonLine } from "../ui/skeleton/Skeleton";
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Input from "../form/input/InputField";
@@ -29,13 +30,17 @@ export default function MainAddressCard() {
     const [zipcode, setZipcode] = useState("");
 
     const [isSaving, setIsSaving] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     
     const fetchAddress = async () => {
+        setIsLoading(true);
         try {
           const response = await getAddress(value);
           setAddress(response.data as Address);
         } catch (error) {
           console.error("Error fetching address:", error);
+        } finally {
+          setIsLoading(false);
         }
       };
   
@@ -89,6 +94,16 @@ export default function MainAddressCard() {
           <h4 className="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6">
             Active Adresse de livraison
           </h4>
+          {isLoading ? (
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i}>
+                  <SkeletonLine className="h-3 w-20" />
+                  <SkeletonLine className="mt-2 h-4 w-32" />
+                </div>
+              ))}
+            </div>
+          ) : (
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
@@ -126,6 +141,7 @@ export default function MainAddressCard() {
               </p>
             </div>
           </div>
+          )}
         </div>
         <button
           onClick={handleOpenModal}

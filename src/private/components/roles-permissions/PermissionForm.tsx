@@ -9,6 +9,7 @@ import { Modal } from "../ui/modal";
 import Avatar from "../ui/avatar/Avatar";
 import { PencilIcon, TrashBinIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { createAgentSurcursal,listAgentSurcursal,searchAgentSurcursal,deleteAgentSurcursal,updateAgentSurcursal} from "../../../services/AgentsurcursalService";
 import { listSurcursals } from "@/services/SurcursalService";
 import { PlusSquareIcon } from "lucide-react";
@@ -82,6 +83,7 @@ export default function PermissionForm() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [agentsurcursals, setAgentsurcursals] = useState<AgentSurcursale[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -111,17 +113,20 @@ export default function PermissionForm() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (recherche.trim() === "") {
-        fetchAgentsurcursals(page);
-        return;
-      }
-
+      setIsLoading(true);
       try {
+        if (recherche.trim() === "") {
+          await fetchAgentsurcursals(page);
+          return;
+        }
+
         const response = await searchAgentSurcursal(recherche, page);
         setAgentsurcursals(response.data.content);
         setTotalPages(response.data.totalPages);
       } catch (error) {
         console.error("Échec de la recherche des agents surcursals:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -311,6 +316,9 @@ const surcursalOptions: Option[] = surcursals.map((surcursal) => ({
           </div>
         </div>
       </div>
+      {isLoading ? (
+        <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {agentsurcursals.map((agentSurcursal) => (
           <div
@@ -394,6 +402,7 @@ const surcursalOptions: Option[] = surcursals.map((surcursal) => ({
           </div>
         )}
       </div>
+      )}
 
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
         <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { MessageCircle } from "lucide-react";
 import Button from "../ui/button/Button";
 import { listFeedBacks, markAsRead } from "@/services/FeedBackService";
@@ -152,9 +153,7 @@ export default function FeedbackInbox() {
 
         <div className="custom-scrollbar max-h-[calc(100vh-330px)] min-h-[620px] space-y-3 overflow-y-auto pr-1">
           {isLoading ? (
-            <div className="rounded-lg border border-dashed border-gray-300 p-5 text-center text-sm text-gray-500 dark:border-white/[0.08] dark:text-gray-400">
-              Chargement...
-            </div>
+            <SkeletonCardGrid count={4} className="space-y-3" />
           ) : feedbacks.length === 0 ? (
             <div className="rounded-lg border border-dashed border-gray-300 p-5 text-center text-sm text-gray-500 dark:border-white/[0.08] dark:text-gray-400">
               Aucun feedback trouve.
