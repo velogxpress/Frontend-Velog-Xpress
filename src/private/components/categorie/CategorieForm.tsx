@@ -10,6 +10,7 @@ import Avatar from "../ui/avatar/Avatar";
 import AvatarText from "../ui/avatar/AvatarText";
 import { PencilIcon, TrashBinIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { createCategorie,listCategories, searchCategorie, updateCategorie, deleteCategorie} from "../../../services/CategorieService";
 
 
@@ -34,6 +35,7 @@ export default function CategorieForm() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -52,12 +54,15 @@ export default function CategorieForm() {
   }>({});
 
   const fetchCategories = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await listCategories(pageNumber);
         setCategories(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des catégories:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -271,6 +276,9 @@ export default function CategorieForm() {
           </div>
         </div>
       </div>
+      {isLoading ? (
+        <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {categories.map((category) => (
           <div
@@ -329,6 +337,7 @@ export default function CategorieForm() {
           </div>
         )}
       </div>
+      )}
 
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
         <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">

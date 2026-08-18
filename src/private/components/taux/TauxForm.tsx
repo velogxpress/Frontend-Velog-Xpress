@@ -16,6 +16,7 @@ import { Modal } from "../ui/modal";
 import Avatar from "../ui/avatar/Avatar";
 import { PencilIcon, TrashBinIcon,PlusIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import { createTaux,listTaux, searchTaux, updateTaux, deleteTaux } from "../../../services/TauxService";
 
 
@@ -54,6 +55,7 @@ export default function TauxForm() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [taux, setTaux] = useState<Taux[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -74,12 +76,15 @@ export default function TauxForm() {
   }>({});
 
   const fetchTaux = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await listTaux(pageNumber);
       setTaux(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des villes:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -343,7 +348,9 @@ const handleSelectChange = async (selectedOption: Option | null) => {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {taux.map((tauxItem) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={5} />
+                ) : taux.map((tauxItem) => (
                   <TableRow key={tauxItem.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       {tauxItem.devise}

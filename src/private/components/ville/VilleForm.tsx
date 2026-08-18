@@ -10,6 +10,7 @@ import Avatar from "../../components/ui/avatar/Avatar";
 import AvatarText from "../../components/ui/avatar/AvatarText";
 import { PencilIcon, TrashBinIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonCardGrid } from "../ui/skeleton/Skeleton";
 import { createVille,listVilles, getlistVilles, updateVille, deleteVille } from "../../../services/VilleService";
 import { listRegions, getRegionByID } from "../../../services/RegionService";
 
@@ -34,6 +35,7 @@ export default function VilleForm() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [villes, setVilles] = useState<Ville[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -54,12 +56,15 @@ export default function VilleForm() {
   }>({});
 
   const fetchVilles = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await listVilles(pageNumber);
       setVilles(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des villes:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -329,6 +334,9 @@ const handleSelectChange = async (selectedOption: Option | null) => {
           </div>
         </div>
       </div>
+      {isLoading ? (
+        <SkeletonCardGrid count={6} className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3" />
+      ) : (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {villes.map((ville) => (
           <div
@@ -390,6 +398,7 @@ const handleSelectChange = async (selectedOption: Option | null) => {
           </div>
         )}
       </div>
+      )}
 
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
         <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">

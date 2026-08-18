@@ -15,6 +15,7 @@ import { Modal } from "../ui/modal";
 import Avatar from "../ui/avatar/Avatar";
 import { PencilIcon, TrashBinIcon,PlusIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import { createFeepound,listFeepounds, getFeepoundByAmount, updateFeepound, deleteFeepound} from "../../../services/FeepoundsService";
 
 
@@ -41,6 +42,7 @@ export default function FeepoundForm() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [feepounds, setFeepounds] = useState<Feepounds[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -57,12 +59,15 @@ export default function FeepoundForm() {
   }>({});
 
   const fetchFeepounds = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await listFeepounds(pageNumber);
       setFeepounds(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des frais par livre:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -282,7 +287,9 @@ export default function FeepoundForm() {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {feepounds.map((feepound) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={2} />
+                ) : feepounds.map((feepound) => (
                   <TableRow key={feepound.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       { "$US "}{feepound.amount}

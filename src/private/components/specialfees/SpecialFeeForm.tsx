@@ -15,6 +15,7 @@ import { Modal } from "../ui/modal";
 import Avatar from "../ui/avatar/Avatar";
 import { PencilIcon, TrashBinIcon,PlusIcon,SearchIcon } from "../../icons";
 import { useState, useEffect } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 import { createSpecialfee,listSpecialfees, getSpecialfeeByAmount, updateSpecialfee, deleteSpecialfee} from "../../../services/SpecialfeeService";
 
 
@@ -42,6 +43,7 @@ export default function SpecialFeeForm() {
   const {isOpen: isEditOpen, openModal: openEditModal,closeModal: closeEditModal} = useModal();
   const {isOpen: isDeleteOpen, openModal: openDeleteModal,closeModal: closeDeleteModal} = useModal();
   const [specialfees, setSpecialfees] = useState<Specialfee[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [recherche, setRecherche] = useState("");
@@ -58,12 +60,15 @@ export default function SpecialFeeForm() {
   }>({});
 
   const fetchSpecialfees = async (pageNumber: number) => {
+    setIsLoading(true);
     try {
       const response = await listSpecialfees(pageNumber);
       setSpecialfees(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Échec du chargement des frais speciaux:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -283,7 +288,9 @@ export default function SpecialFeeForm() {
 
               {/* Table Body */}
               <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                {specialfees.map((specialfee) => (
+                {isLoading ? (
+                  <SkeletonTableRows rows={5} columns={2} />
+                ) : specialfees.map((specialfee) => (
                   <TableRow key={specialfee.id}>
                     <TableCell className="px-5 py-4 sm:px-6 text-start">
                       { "$US "}{specialfee.amount}
