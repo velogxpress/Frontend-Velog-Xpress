@@ -580,6 +580,7 @@ export default function CommandeForm() {
   const [detailsClients, setDetailsClients] = useState<OrderDetails[]>([]);
   const [fraisSpeciaux, setFraisSpeciaux] = useState<Cipinfee | null>(null);
   const [labelDouane, setLabelDouane] = useState<string | null>("Frais de Douane");
+  const [isExpedier, setIsExpedier] = useState(false);
 
   const selectedOrderReport = React.useMemo(() => {
     const cityMap = new Map<string, number>();
@@ -930,6 +931,7 @@ export default function CommandeForm() {
     setRecherche("");
     setSelectedOrderId(orderId);
     fetchOrderSelected(orderId); // OK
+
   }
 
 
@@ -2251,7 +2253,8 @@ const handleSelectedcategoryChange = (value: string | number) => {
               variant="primary"
               title="Ajouter un detail a la commande"
               startIcon={<CopyIcon className="size-5" />}
-              onClick={() => handleOpenCreateModal() }
+              onClick={() => handleOpenCreateModal()}
+              disabled={status === "Commande expédiée" ? true : false}
             >
               Ajouter détaille
             </Button>
