@@ -17,6 +17,7 @@ import {
   SearchIcon,
 } from "../../icons";
 import { useState, useEffect, useMemo } from "react";
+import { SkeletonTableRows } from "../ui/skeleton/Skeleton";
 
 import { getlistOrders} from "../../../services/OrderService";
 import { findClientInOrderDetails,searchClientInOrderDetails,getClientInOrderDetails} from "../../../services/OrderDetailsService"
@@ -350,6 +351,7 @@ const fetchTaux = async () => {
   const [montant, setMontant] = useState<number>(0);
 
   const [orderDetailClients, setOrderDetailClients] = useState<OrderDetails[]>([]);
+  const [isClientsLoading, setIsClientsLoading] = useState(false);
   const [clientname, setClientname] = useState<string>("");
   const [clientemail, setClientemail] = useState<string>("");
   const [clientphone, setClientphone] = useState<string>("");
@@ -484,11 +486,14 @@ const fetchTaux = async () => {
 
   useEffect(() => {
     const fetchClients = async (orderId:number) => {
+      setIsClientsLoading(true);
       try {
         const { data } = await findClientInOrderDetails(orderId);
         setOrderDetailClients(data);
       } catch (error) {
         console.error("Erreur récupération clients:", error);
+      } finally {
+        setIsClientsLoading(false);
       }
     };
     if (selectedOrderId) {
@@ -547,11 +552,14 @@ const fetchTaux = async () => {
     if(searchValue.trim() === ""){
       if (selectedOrderId) {
         const fetchClients = async (orderId:number) => {
+          setIsClientsLoading(true);
           try {
             const { data } = await findClientInOrderDetails(orderId);
             setOrderDetailClients(data);
           } catch (error) {
             console.error("Erreur récupération clients:", error);
+          } finally {
+            setIsClientsLoading(false);
           }
         };
         fetchClients(selectedOrderId);
@@ -1036,7 +1044,9 @@ async function handleNotifierWhatsapp(): Promise<void> {
                       </TableRow>
                     </TableHeader>
                     <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                      {orderDetailClients.map((item) => (
+                      {isClientsLoading ? (
+                        <SkeletonTableRows rows={5} columns={5} />
+                      ) : orderDetailClients.map((item) => (
                         <TableRow key={item.id}>
                           <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                             {item.rec_name}
