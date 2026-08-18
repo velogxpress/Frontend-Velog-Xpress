@@ -31,11 +31,14 @@ if (!REST_API_IMAGE_URL) {
 // Cloudinary links) are returned as-is; anything else is treated as a bare
 // filename and gets REST_API_IMAGE_URL prepended.
 //
-// REST_API_IMAGE_URL currently points either at the backend's
-// /uploads/products/{filename} redirect route, or directly at the R2
-// bucket's /products/{filename} path — both work, but the value MUST NOT
-// include /uploads when pointing at R2 directly (R2 objects are stored
-// under the products/ prefix only, no uploads/ prefix).
+// REST_API_IMAGE_URL MUST point at the backend's own
+// /uploads/products/{filename} redirect route (e.g.
+// https://<backend-domain>/uploads/products), NOT directly at the R2
+// bucket. Two eras of photos live in the bucket under different key
+// prefixes (uploads/products/ for images migrated from the old
+// local-disk storage, products/ for everything uploaded since) and only
+// the backend route knows how to pick the right one per file. Pointing
+// this straight at R2 will only ever resolve one of the two eras.
 function resolveFileUrl(value) {
   if (!value) return value;
   if (/^https?:\/\//i.test(value)) return value;
